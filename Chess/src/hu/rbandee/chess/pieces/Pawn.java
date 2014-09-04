@@ -23,4 +23,8 @@ public class Pawn extends Piece {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "P";
+	}
 }

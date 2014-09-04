@@ -7,4 +7,8 @@ public class Player {
 		name = newPlayer;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
 }

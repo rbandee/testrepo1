@@ -12,6 +12,8 @@ public class Application {
 		addNewPlayers(white, black);
 
 		Game game = new Game(white, black);
+		game.initBoard();
+		game.printBoard();
 	}
 
 	private static void addNewPlayers(Player... players) {

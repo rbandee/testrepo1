@@ -12,5 +12,13 @@ public abstract class Piece {
 			position = square;
 	}
 
+	public String getLocation() {
+		return position;
+	}
+
+	public String getMySign() {
+		return this.toString();
+	}
+
 	protected abstract boolean isMoveValid(String square);
 }

@@ -1,13 +1,15 @@
 package hu.rbandee.chess.pieces;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Side {
 	Player player;
-	Set<Piece> pieces;
+	List<Piece> pieces;
 
 	public Side(Player player) {
 		this.player = player;
+		pieces = new ArrayList<Piece>();
 	}
 
 	public void addPiece(String square, PieceType piece) {
@@ -30,6 +32,14 @@ public class Side {
 		case Rook:
 			pieces.add(new Rook(square));
 			break;
+		}
+	}
+
+	public void printAllPieces() {
+		System.out.println();
+		System.out.println(player + "'s pieces:");
+		for (Piece piece : pieces) {
+			System.out.print(piece + ":" + piece.getLocation() + " - ");
 		}
 	}
 }
