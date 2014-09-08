@@ -1,5 +1,7 @@
 package hu.rbandee.chess.pieces;
 
+import java.util.Arrays;
+
 public class ChessBoard {
 	private static final String rowNumbers = "   1   2   3   4   5   6   7   8";
 	private static final String[] columnNumbers = { "a", "b", "c", "d", "e",
@@ -20,17 +22,19 @@ public class ChessBoard {
 	}
 
 	private void initEmptyBoard() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				boolean oddRow = (i % 2 == 0);
-				boolean oddColumn = (j % 2 == 0);
-
-				if (oddRow && oddColumn || !oddRow && !oddColumn) {
-					currentBoard[i][j] = BoardValues.EmptyBlack;
-				} else {
-					currentBoard[i][j] = BoardValues.EmptyWhite;
-				}
+		for (int column = 0; column < 8; column++) {
+			for (int row = 0; row < 8; row++) {
+				initBoardElement(column, row, column % 2 == 0, row % 2 == 0);
 			}
+		}
+	}
+
+	private void initBoardElement(int column, int row, boolean oddRow,
+			boolean oddColumn) {
+		if (oddRow && oddColumn || !oddRow && !oddColumn) {
+			currentBoard[column][row] = BoardValues.EmptyBlack;
+		} else {
+			currentBoard[column][row] = BoardValues.EmptyWhite;
 		}
 	}
 
@@ -114,6 +118,7 @@ public class ChessBoard {
 			element = "R";
 			break;
 		}
+
 		boardLayoutInTextBuilder.append(element);
 	}
 
@@ -133,26 +138,15 @@ public class ChessBoard {
 
 	public void addPieceToBoard(Piece piece) {
 		String location = piece.getLocation();
-		String columnString = location.substring(0, 1);
-		String rowString = location.substring(1);
-
-		int row = Integer.parseInt(rowString) - 1;
-		int column = getColumnNumberFromLetter(columnString.toLowerCase());
+		int row = Integer.parseInt(location.substring(1)) - 1;
+		int column = getColumnNumber(location.substring(0, 1));
 
 		currentBoard[column][row] = piece.getType();
 		createBoardLayoutInText();
 	}
 
-	private int getColumnNumberFromLetter(String letter) {
-		int column = 0;
-		for (int i = 0; i < columnNumbers.length; i++) {
-			if (columnNumbers[i].equals(letter)) {
-				column = i;
-				break;
-			}
-		}
-
-		return column;
+	private int getColumnNumber(String letter) {
+		return Arrays.binarySearch(columnNumbers, letter.toLowerCase());
 	}
 
 	public String getBoardLayoutInText() {
