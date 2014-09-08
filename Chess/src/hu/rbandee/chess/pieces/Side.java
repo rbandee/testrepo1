@@ -6,33 +6,44 @@ import java.util.List;
 public class Side {
 	Player player;
 	List<Piece> pieces;
+	Color color;
 
-	public Side(Player player) {
+	public Side(Player player, Color color) {
 		this.player = player;
+		this.color = color;
 		pieces = new ArrayList<Piece>();
 	}
 
-	public void addPiece(String square, PieceType piece) {
-		switch (piece) {
+	public Piece addPiece(String square, PieceType pieceType) {
+		Piece newPiece = null;
+		switch (pieceType) {
 		case Bishop:
-			pieces.add(new Bishop(square));
+			newPiece = new Bishop(square, color);
 			break;
 		case King:
-			pieces.add(new King(square));
+			newPiece = new King(square, color);
 			break;
 		case Knight:
-			pieces.add(new Knight(square));
+			newPiece = new Knight(square, color);
 			break;
 		case Pawn:
-			pieces.add(new Pawn(square));
+			newPiece = new Pawn(square, color);
 			break;
 		case Queen:
-			pieces.add(new Queen(square));
+			newPiece = new Queen(square, color);
 			break;
 		case Rook:
-			pieces.add(new Rook(square));
+			newPiece = new Rook(square, color);
 			break;
 		}
+		if (newPiece != null)
+			pieces.add(newPiece);
+		else {
+			throw new RuntimeException("Chess Piece (" + pieceType
+					+ ") couldn't created on square " + square);
+		}
+
+		return newPiece;
 	}
 
 	public void printAllPieces() {

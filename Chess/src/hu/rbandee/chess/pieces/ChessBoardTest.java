@@ -30,6 +30,6 @@ public class ChessBoardTest {
 				+ " +-------------------------------+"
 				+ "   1   2   3   4   5   6   7   8";
 
-		assertEquals(emptyChessBoard, board.getBoard());
+		assertEquals(emptyChessBoard, board.getBoardLayoutInText());
 	}
 }

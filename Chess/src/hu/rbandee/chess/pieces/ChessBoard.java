@@ -1,19 +1,22 @@
 package hu.rbandee.chess.pieces;
 
 public class ChessBoard {
-	public final String[] defaultRow = new String[8];
-	public final String rowNumbers = "   1   2   3   4   5   6   7   8";
-	public final String[] colmumnNumbers = { "a", "b", "c", "d", "e", "f", "g",
-			"h" };
-	public final String separatorLine = " |-------------------------------|";
-	public final String topLine = " +-------------------------------+";
-	public final String emptyWhiteSquare = " ";
-	public final String emptyBlackSquare = ".";
+	private static final String rowNumbers = "   1   2   3   4   5   6   7   8";
+	private static final String[] columnNumbers = { "a", "b", "c", "d", "e",
+			"f", "g", "h" };
+	private static final String separatorLine = " |-------------------------------|";
+	private static final String topLine = " +-------------------------------+";
+	private static final String emptyWhiteSquare = " ";
+	private static final String emptyBlackSquare = ".";
 
 	private final BoardValues[][] currentBoard = new BoardValues[8][8];
 
+	private final StringBuilder boardLayoutInTextBuilder = new StringBuilder(
+			700);
+
 	public ChessBoard() {
 		initEmptyBoard();
+		createBoardLayoutInText();
 	}
 
 	private void initEmptyBoard() {
@@ -32,36 +35,40 @@ public class ChessBoard {
 	}
 
 	public void printBoard() {
-		printEmptyline();
-		printBoardHeader();
-		printRow();
-		printBoardFooter();
+		System.out.println(boardLayoutInTextBuilder.toString());
 	}
 
-	private void printEmptyline() {
-		System.out.println();
+	public void createBoardLayoutInText() {
+		addEmptylineToLayout();
+		addtBoardHeaderToLayout();
+		addRowToLayout();
+		addBoardFooterToLayout();
 	}
 
-	private void printRow() {
+	private void addEmptylineToLayout() {
+		boardLayoutInTextBuilder.append("\n");
+	}
+
+	private void addRowToLayout() {
 		for (int row = 7; row >= 0; row--) {
-			System.out.print(colmumnNumbers[row] + "|");
-			printSquaresInRow(row);
-			System.out.print(colmumnNumbers[row]);
-			System.out.println();
+			boardLayoutInTextBuilder.append(columnNumbers[row]).append("|");
+			addSquaresInRowToLayout(row);
+			boardLayoutInTextBuilder.append(columnNumbers[row]);
+			addEmptylineToLayout();
 			if (row != 0)
-				System.out.println(separatorLine);
+				boardLayoutInTextBuilder.append(separatorLine).append("\n");
 		}
 	}
 
-	private void printSquaresInRow(int row) {
+	private void addSquaresInRowToLayout(int row) {
 		for (int column = 0; column < 8; column++) {
-			System.out.print(" ");
-			printElement(row, column);
-			System.out.print(" |");
+			boardLayoutInTextBuilder.append(" ");
+			addElementToLayout(row, column);
+			boardLayoutInTextBuilder.append(" |");
 		}
 	}
 
-	private void printElement(int row, int column) {
+	private void addElementToLayout(int row, int column) {
 		String element = "";
 		switch (currentBoard[row][column]) {
 		case EmptyBlack:
@@ -107,25 +114,48 @@ public class ChessBoard {
 			element = "R";
 			break;
 		}
-		System.out.print(element);
+		boardLayoutInTextBuilder.append(element);
 	}
 
-	private void printBoardHeader() {
-		System.out.println(rowNumbers);
-		System.out.println(topLine);
+	private void addtBoardHeaderToLayout() {
+		boardLayoutInTextBuilder.append(rowNumbers);
+		addEmptylineToLayout();
+		boardLayoutInTextBuilder.append(topLine);
+		addEmptylineToLayout();
 	}
 
-	private void printBoardFooter() {
-		System.out.println(topLine);
-		System.out.println(rowNumbers);
+	private void addBoardFooterToLayout() {
+		boardLayoutInTextBuilder.append(topLine);
+		addEmptylineToLayout();
+		boardLayoutInTextBuilder.append(rowNumbers);
+		addEmptylineToLayout();
 	}
 
 	public void addPieceToBoard(Piece piece) {
 		String location = piece.getLocation();
-		String name = piece.getMySign();
+		String columnString = location.substring(0, 1);
+		String rowString = location.substring(1);
+
+		int row = Integer.parseInt(rowString) - 1;
+		int column = getColumnNumberFromLetter(columnString.toLowerCase());
+
+		currentBoard[column][row] = piece.getType();
+		createBoardLayoutInText();
 	}
 
-	public Object getBoard() {
-		return currentBoard;
+	private int getColumnNumberFromLetter(String letter) {
+		int column = 0;
+		for (int i = 0; i < columnNumbers.length; i++) {
+			if (columnNumbers[i].equals(letter)) {
+				column = i;
+				break;
+			}
+		}
+
+		return column;
+	}
+
+	public String getBoardLayoutInText() {
+		return boardLayoutInTextBuilder.toString();
 	}
 }
