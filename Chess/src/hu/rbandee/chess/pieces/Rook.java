@@ -2,9 +2,9 @@ package hu.rbandee.chess.pieces;
 
 public class Rook extends Piece {
 
-	public Rook(String startPositon, Color color) {
+	public Rook(String startPositon, Side side) {
 		super(startPositon);
-		if (color == Color.White)
+		if (side == Side.White)
 			boardValue = BoardValues.WR;
 		else
 			boardValue = BoardValues.BR;

@@ -2,9 +2,9 @@ package hu.rbandee.chess.pieces;
 
 public class Queen extends Piece {
 
-	public Queen(String startPositon, Color color) {
+	public Queen(String startPositon, Side side) {
 		super(startPositon);
-		if (color == Color.White)
+		if (side == Side.White)
 			boardValue = BoardValues.WQ;
 		else
 			boardValue = BoardValues.BQ;

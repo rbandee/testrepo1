@@ -1,5 +1,5 @@
 package hu.rbandee.chess.pieces;
 
-public enum Color {
+public enum Side {
 	White, Black
 }

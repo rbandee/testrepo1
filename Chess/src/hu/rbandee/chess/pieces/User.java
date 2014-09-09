@@ -1,10 +1,10 @@
 package hu.rbandee.chess.pieces;
 
-public class Player {
+public class User {
 	String name = "";
 
-	public Player(String newPlayer) {
-		name = newPlayer;
+	public User(String newUser) {
+		name = newUser;
 	}
 
 	@Override

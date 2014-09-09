@@ -2,9 +2,9 @@ package hu.rbandee.chess.pieces;
 
 public class Pawn extends Piece {
 
-	public Pawn(String startPositon, Color color) {
+	public Pawn(String startPositon, Side side) {
 		super(startPositon);
-		if (color == Color.White)
+		if (side == Side.White)
 			boardValue = BoardValues.WP;
 		else
 			boardValue = BoardValues.BP;

@@ -2,9 +2,9 @@ package hu.rbandee.chess.pieces;
 
 public class Bishop extends Piece {
 
-	public Bishop(String startPositon, Color color) {
+	public Bishop(String startPositon, Side side) {
 		super(startPositon);
-		if (color == Color.White)
+		if (side == Side.White)
 			boardValue = BoardValues.WB;
 		else
 			boardValue = BoardValues.BB;

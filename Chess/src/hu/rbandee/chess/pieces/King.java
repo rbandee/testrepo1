@@ -2,9 +2,9 @@ package hu.rbandee.chess.pieces;
 
 public class King extends Piece {
 
-	public King(String startPositon, Color color) {
+	public King(String startPositon, Side side) {
 		super(startPositon);
-		if (color == Color.White)
+		if (side == Side.White)
 			boardValue = BoardValues.WK;
 		else
 			boardValue = BoardValues.BK;

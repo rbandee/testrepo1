@@ -1,13 +1,13 @@
 package hu.rbandee.chess.pieces;
 
 public class Game {
-	Side whiteSide;
-	Side blackSide;
+	Player whiteSide;
+	Player blackSide;
 	ChessBoard board;
 
-	public Game(Player white, Player black) {
-		whiteSide = new Side(white, Color.White);
-		blackSide = new Side(black, Color.Black);
+	public Game(User white, User black) {
+		whiteSide = new Player(white, Side.White);
+		blackSide = new Player(black, Side.Black);
 
 		board = new ChessBoard();
 	}

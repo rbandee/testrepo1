@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
-	static List<Player> players = new ArrayList<Player>();
+	static List<User> users = new ArrayList<User>();
 
 	public static void main(String[] args) {
-		Player white = new Player("White");
-		Player black = new Player("Black");
-		addNewPlayers(white, black);
+		User white = new User("White");
+		User black = new User("Black");
+		addNewUsers(white, black);
 
 		Game game = new Game(white, black);
 		game.initBoard();
 		game.printBoard();
 	}
 
-	private static void addNewPlayers(Player... players) {
-		for (Player player : players) {
-			addNewPlayer(player);
+	private static void addNewUsers(User... users) {
+		for (User user : users) {
+			addNewUser(user);
 		}
 	}
 
-	private static void addNewPlayer(Player player) {
-		players.add(player);
+	private static void addNewUser(User user) {
+		users.add(user);
 
 	}
 }
