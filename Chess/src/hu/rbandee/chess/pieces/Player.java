@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	User user;
-	List<Piece> pieces;
-	Side side;
+	private final User user;
+	private final List<Piece> pieces;
+	private final Side side;
 
-	public Player(User user, Side side) {
+	public Player(final User user, final Side side) {
 		this.user = user;
 		this.side = side;
 		pieces = new ArrayList<Piece>();
 	}
 
-	public Piece addPiece(String square, PieceType pieceType) {
-		Piece newPiece = null;
+	public Piece addPiece(final String square, final PieceType pieceType) {
+		Piece newPiece;
 		switch (pieceType) {
 		case Bishop:
 			newPiece = new Bishop(square, side);
@@ -35,21 +35,20 @@ public class Player {
 		case Rook:
 			newPiece = new Rook(square, side);
 			break;
-		}
-		if (newPiece != null)
-			pieces.add(newPiece);
-		else {
+		default:
 			throw new RuntimeException("Chess Piece (" + pieceType
 					+ ") couldn't created on square " + square);
 		}
+		pieces.add(newPiece);
 
 		return newPiece;
 	}
 
+	//For Testing purposes
 	public void printAllPieces() {
 		System.out.println();
 		System.out.println(user + "'s pieces:");
-		for (Piece piece : pieces) {
+		for (final Piece piece : pieces) {
 			System.out.print(piece + ":" + piece.getLocation() + " - ");
 		}
 	}

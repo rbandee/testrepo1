@@ -2,22 +2,18 @@ package hu.rbandee.chess.pieces;
 
 public class Bishop extends Piece {
 
-	public Bishop(String startPositon, Side side) {
+	public Bishop(final String startPositon, final Side side) {
 		super(startPositon);
-		if (side == Side.White)
+		if (side == Side.White) {
 			boardValue = BoardValues.WB;
-		else
+		} else {
 			boardValue = BoardValues.BB;
+		}
 	}
 
 	@Override
-	protected boolean isMoveValid(String square) {
+	protected boolean isMoveValid(final String square) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "B";
 	}
 }

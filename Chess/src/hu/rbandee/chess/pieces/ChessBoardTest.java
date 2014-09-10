@@ -8,9 +8,9 @@ public class ChessBoardTest {
 
 	@Test
 	public void empty_chessboard() {
-		ChessBoard board = new ChessBoard();
+		final ChessBoard board = new ChessBoard();
 
-		String emptyChessBoard = "   1   2   3   4   5   6   7   8"
+		final String emptyChessBoard = "   1   2   3   4   5   6   7   8"
 				+ " +-------------------------------+"
 				+ "H|   | . |   | . |   | . |   | . |"
 				+ " |-------------------------------|"

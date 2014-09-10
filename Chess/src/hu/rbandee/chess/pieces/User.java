@@ -1,9 +1,9 @@
 package hu.rbandee.chess.pieces;
 
 public class User {
-	String name = "";
+	private final String name;
 
-	public User(String newUser) {
+	public User(final String newUser) {
 		name = newUser;
 	}
 

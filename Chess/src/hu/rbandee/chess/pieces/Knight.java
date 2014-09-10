@@ -2,22 +2,18 @@ package hu.rbandee.chess.pieces;
 
 public class Knight extends Piece {
 
-	public Knight(String startPositon, Side side) {
+	public Knight(final String startPositon, final Side side) {
 		super(startPositon);
-		if (side == Side.White)
+		if (side == Side.White) {
 			boardValue = BoardValues.WN;
-		else
+		} else {
 			boardValue = BoardValues.BN;
+		}
 	}
 
 	@Override
-	protected boolean isMoveValid(String square) {
+	protected boolean isMoveValid(final String square) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "L";
 	}
 }

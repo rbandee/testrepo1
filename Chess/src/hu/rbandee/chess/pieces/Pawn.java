@@ -2,33 +2,30 @@ package hu.rbandee.chess.pieces;
 
 public class Pawn extends Piece {
 
-	public Pawn(String startPositon, Side side) {
+	public Pawn(final String startPositon, final Side side) {
 		super(startPositon);
-		if (side == Side.White)
+		if (side == Side.White) {
 			boardValue = BoardValues.WP;
-		else
+		} else {
 			boardValue = BoardValues.BP;
+		}
 	}
 
 	@Override
-	protected boolean isMoveValid(String square) {
-		boolean valid = false;
+	protected boolean isMoveValid(final String square) {
+		boolean valid;
 
-		if (isSquareFree(square))
+		if (isSquareFree(square)) {
 			valid = true;
-		else
+		} else {
 			valid = false;
+		}
 
 		return valid;
 	}
 
-	private boolean isSquareFree(String square) {
+	private boolean isSquareFree(final String square) {
 		// TODO --> BOARD or RULES responsibility
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "P";
 	}
 }
