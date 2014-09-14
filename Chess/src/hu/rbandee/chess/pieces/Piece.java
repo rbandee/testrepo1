@@ -1,20 +1,21 @@
 package hu.rbandee.chess.pieces;
 
 public abstract class Piece {
-	private String position;
+	private Square position;
 	protected BoardValues boardValue;
+	private ChessBoard myBoard;
 
-	public Piece(final String startPositon) {
+	public Piece(final Square startPositon) {
 		position = startPositon;
 	}
 
-	public void move(final String square) {
+	public void move(final Square square) {
 		if (isMoveValid(square)) {
 			position = square;
 		}
 	}
 
-	public String getLocation() {
+	public Square getPosition() {
 		return position;
 	}
 
@@ -22,5 +23,12 @@ public abstract class Piece {
 		return boardValue;
 	}
 
-	protected abstract boolean isMoveValid(final String square);
+	protected abstract boolean isMoveValid(final Square square);
+	public ChessBoard getMyBoard() {
+		return myBoard;
+	}
+
+	public void setMyBoard(ChessBoard chessBoard) {
+		myBoard = chessBoard;		
+	}
 }

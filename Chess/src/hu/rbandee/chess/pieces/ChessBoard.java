@@ -1,12 +1,9 @@
 package hu.rbandee.chess.pieces;
 
-import java.util.Arrays;
-import java.util.Locale;
-
 public class ChessBoard {
-	static final String[] columnLetters = { "1", "2", "3", "4", "5", "6", "7",
+	static final String[] rowLetters = { "1", "2", "3", "4", "5", "6", "7",
 			"8" };
-	static final String[] rowLetters = { "a", "b", "c", "d", "e", "f", "g", "h" };
+	static final String[] columnLetters = { "a", "b", "c", "d", "e", "f", "g", "h" };
 	private final Printer printer;
 
 	private final BoardValues[][] currentBoard = new BoardValues[8][8];
@@ -30,32 +27,55 @@ public class ChessBoard {
 		final boolean oddRow = row % 2 == 0;
 		final boolean oddColumn = column % 2 == 0;
 		if (oddRow && oddColumn || !oddRow && !oddColumn) {
-			currentBoard[row][column] = BoardValues.EmptyBlack;
+			currentBoard[column][row] = BoardValues.EmptyBlack;
 		} else {
-			currentBoard[row][column] = BoardValues.EmptyWhite;
+			currentBoard[column][row] = BoardValues.EmptyWhite;
 		}
 	}
 
-	public BoardValues getBoardValue(final int row, final int column) {
-		return currentBoard[row][column];
+	public BoardValues getBoardValue(final int column, final int row) {
+		return currentBoard[column][row];
 	}
 
 	public void printBoard() {
 		printer.printBoard();
 	}
 
-	public void addPieceToBoard(final Piece piece) {
-		final String location = piece.getLocation();
-		final int row = Integer.parseInt(location.substring(1)) - 1;
-		final int column = getColumnNumber(location.substring(0, 1));
-
-		currentBoard[column][row] = piece.getType();
-		printer.createBoardLayout();
+	public void addPieceToBoard(final Piece newPiece) {
+		newPiece.setMyBoard(this);
+		final int column = newPiece.getPosition().getColumn();
+		final int row = newPiece.getPosition().getRow();
+		currentBoard[column][row] = newPiece.getType();
+		printer.updateBoardLayout();
 	}
-
-	private int getColumnNumber(final String letter) {
-		return Arrays.binarySearch(rowLetters,
-				letter.toLowerCase(Locale.ENGLISH));
+	
+	public Piece createNewPiece(final String squareString, final Side side, final PieceType pieceType) {
+		final Square square = new Square(squareString);
+		Piece newPiece;
+		switch (pieceType) {
+		case Bishop:
+			newPiece = new Bishop(square, side);
+			break;
+		case King:
+			newPiece = new King(square, side);
+			break;
+		case Knight:
+			newPiece = new Knight(square, side);
+			break;
+		case Pawn:
+			newPiece = new Pawn(square, side);
+			break;
+		case Queen:
+			newPiece = new Queen(square, side);
+			break;
+		case Rook:
+			newPiece = new Rook(square, side);
+			break;
+		default:
+			throw new RuntimeException("Chess Piece (" + pieceType
+					+ ") couldn't created on square " + square);
+		}
+		return newPiece;
 	}
 
 	public String getBoardLayoutInText() {
@@ -64,5 +84,16 @@ public class ChessBoard {
 
 	public static String getRowLetter(final int column) {
 		return rowLetters[column];
+	}
+	
+	public boolean isSquareFree(final Square square) {
+		boolean free;
+		BoardValues value = currentBoard[square.getColumn()][square.getRow()];
+		if (value==BoardValues.EmptyBlack || value==BoardValues.EmptyWhite){
+			free = true;
+		} else {
+			free = false;
+		}
+		return free;
 	}
 }
