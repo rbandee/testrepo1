@@ -15,18 +15,13 @@ public class Pawn extends Piece {
 	protected boolean isMoveValid(final Square square) {
 		boolean valid;
 		if ( getMyBoard().isSquareFree(square)){
-			//lepes
-			if (straightAhead(square) && oneStep(square)){
-				valid = true;
-			}else  if (straightAhead(square) && twoStep(square)){
+			if (oneStepAhead(square)||initialTwoSteps(square)){
 				valid = true;
 			} else {
 				valid = false;
 			}
-			
 		}else{
-			//utes
-			if (oneStep(square) && adjacent(square)){
+			if (utes(square)){
 				valid = true;
 			}else {
 				valid = false;
@@ -37,8 +32,20 @@ public class Pawn extends Piece {
 		return valid;
 	}
 
+	private boolean utes(final Square square) {
+		return oneStep(square) && adjacent(square);
+	}
+
+	private boolean initialTwoSteps(final Square square) {
+		return straightAhead(square) && twoStep(square);
+	}
+
+	private boolean oneStepAhead(final Square square) {
+		return straightAhead(square) && oneStep(square);
+	}
+
 	private boolean twoStep(Square square) {
-		return square.getRow()-2 == getPosition().getRow();
+		return (isWhite() && (getPosition().getRow() == 1) && ((square.getRow()-2) == getPosition().getRow())) || (isBlack() && (getPosition().getRow() == 6) && ((square.getRow()+2) == getPosition().getRow()));
 	}
 
 	private boolean adjacent(Square square) {
@@ -46,7 +53,7 @@ public class Pawn extends Piece {
 	}
 
 	private boolean oneStep(Square square) {
-		return square.getRow()-1 == getPosition().getRow();
+		return (isWhite() && square.getRow()-1 == getPosition().getRow()) || (isBlack() && square.getRow()+1 == getPosition().getRow());
 	}
 
 	private boolean straightAhead(final Square square) {
