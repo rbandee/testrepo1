@@ -130,4 +130,9 @@ public class Printer {
 	public String getBoardLayoutInText() {
 		return boardLayout.toString();
 	}
+
+	public void updateBoardLayout() {
+		//TODO rewrite this to onli update not regenereate the whole board
+		createBoardLayout();
+	}
 }
