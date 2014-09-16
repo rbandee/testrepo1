@@ -14,40 +14,46 @@ public class Pawn extends Piece {
 	@Override
 	protected boolean isMoveValid(final Square square) {
 		boolean valid;
-		if ( getMyBoard().isSquareFree(square)){
-			if (oneStepAhead(square)||initialTwoSteps(square)){
+		if (getMyBoard().isSquareFree(square)) {
+			if (oneStepAhead(square) || initialTwoSteps(square)) {
 				valid = true;
 			} else {
 				valid = false;
 			}
-		}else if (isOpponent(square)){
-			if (capture(square)){
+		} else if (isOpponent(square)) {
+			if (capture(square)) {
 				valid = true;
-			}else {
+			} else {
 				valid = false;
 			}
-			
+
 		} else {
 			valid = false;
 		}
-		
+
 		return valid;
 	}
 
 	private boolean isOpponent(Square square) {
 		boolean result;
-		BoardValues bv = getMyBoard().getBoardValue(square.getColumn(), square.getRow());
+		BoardValues bv = getMyBoard().getBoardValue(square.getColumn(),
+				square.getRow());
 		Side pieceSide;
-		if (bv == BoardValues.BK || bv == BoardValues.BB || bv == BoardValues.BQ || bv == BoardValues.BR || bv == BoardValues.BN || bv == BoardValues.BP){
+		if (bv == BoardValues.BK || bv == BoardValues.BB
+				|| bv == BoardValues.BQ || bv == BoardValues.BR
+				|| bv == BoardValues.BN || bv == BoardValues.BP) {
 			pieceSide = Side.Black;
-		}else if (bv == BoardValues.WK || bv == BoardValues.WB || bv == BoardValues.WQ || bv == BoardValues.WR || bv == BoardValues.WN || bv == BoardValues.WP){
+		} else if (bv == BoardValues.WK || bv == BoardValues.WB
+				|| bv == BoardValues.WQ || bv == BoardValues.WR
+				|| bv == BoardValues.WN || bv == BoardValues.WP) {
 			pieceSide = Side.White;
-		}else{
-			throw new RuntimeException("Unexpected error! There should be a "+bv+" piece on "+square+", but it seems empty.");
+		} else {
+			throw new RuntimeException("Unexpected error! There should be a "
+					+ bv + " piece on " + square + ", but it seems empty.");
 		}
-		if (pieceSide == this.side){
+		if (pieceSide == this.getSide()) {
 			result = false;
-		}else {
+		} else {
 			result = true;
 		}
 		return result;
@@ -66,7 +72,10 @@ public class Pawn extends Piece {
 	}
 
 	private boolean twoStep(Square square) {
-		return (isWhite() && (getPosition().getRow() == 1) && ((square.getRow()-2) == getPosition().getRow())) || (isBlack() && (getPosition().getRow() == 6) && ((square.getRow()+2) == getPosition().getRow()));
+		return (isWhite() && (getPosition().getRow() == 1) && ((square.getRow() - 2) == getPosition()
+				.getRow()))
+				|| (isBlack() && (getPosition().getRow() == 6) && ((square
+						.getRow() + 2) == getPosition().getRow()));
 	}
 
 	private boolean adjacent(Square square) {
@@ -74,16 +83,18 @@ public class Pawn extends Piece {
 		int col = getPosition().getColumn();
 		int toCol = square.getColumn();
 
-		if ((col - 1 >= 0 && col-1==toCol) || (col +1 <8 && col +1==toCol)){
+		if ((col - 1 >= 0 && col - 1 == toCol)
+				|| (col + 1 < 8 && col + 1 == toCol)) {
 			result = true;
-		}else {
+		} else {
 			result = false;
 		}
 		return result;
 	}
 
 	private boolean oneStep(Square square) {
-		return (isWhite() && square.getRow()-1 == getPosition().getRow()) || (isBlack() && square.getRow()+1 == getPosition().getRow());
+		return (isWhite() && square.getRow() - 1 == getPosition().getRow())
+				|| (isBlack() && square.getRow() + 1 == getPosition().getRow());
 	}
 
 	private boolean straightAhead(final Square square) {
