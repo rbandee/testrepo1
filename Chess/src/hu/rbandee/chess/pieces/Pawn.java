@@ -20,19 +20,40 @@ public class Pawn extends Piece {
 			} else {
 				valid = false;
 			}
-		}else{
-			if (utes(square)){
+		}else if (isOpponent(square)){
+			if (capture(square)){
 				valid = true;
 			}else {
 				valid = false;
 			}
 			
+		} else {
+			valid = false;
 		}
 		
 		return valid;
 	}
 
-	private boolean utes(final Square square) {
+	private boolean isOpponent(Square square) {
+		boolean result;
+		BoardValues bv = getMyBoard().getBoardValue(square.getColumn(), square.getRow());
+		Side pieceSide;
+		if (bv == BoardValues.BK || bv == BoardValues.BB || bv == BoardValues.BQ || bv == BoardValues.BR || bv == BoardValues.BN || bv == BoardValues.BP){
+			pieceSide = Side.Black;
+		}else if (bv == BoardValues.WK || bv == BoardValues.WB || bv == BoardValues.WQ || bv == BoardValues.WR || bv == BoardValues.WN || bv == BoardValues.WP){
+			pieceSide = Side.White;
+		}else{
+			throw new RuntimeException("Unexpected error! There should be a "+bv+" piece on "+square+", but it seems empty.");
+		}
+		if (pieceSide == this.side){
+			result = false;
+		}else {
+			result = true;
+		}
+		return result;
+	}
+
+	private boolean capture(final Square square) {
 		return oneStep(square) && adjacent(square);
 	}
 
@@ -49,7 +70,16 @@ public class Pawn extends Piece {
 	}
 
 	private boolean adjacent(Square square) {
-		return (square.getColumn()+1 == getPosition().getColumn()) || (square.getColumn()-1 == getPosition().getColumn());
+		boolean result;
+		int col = getPosition().getColumn();
+		int toCol = square.getColumn();
+
+		if ((col - 1 >= 0 && col-1==toCol) || (col +1 <8 && col +1==toCol)){
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;
 	}
 
 	private boolean oneStep(Square square) {

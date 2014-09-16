@@ -49,4 +49,29 @@ public class PawnTest {
 		testBoard.addPieceToBoard(apawn);
 		assertFalse(apawn.isMoveValid(new Square("A5")));
 	}
+
+	@Test
+	public void invalid_far_move() {
+		final Pawn apawn = (Pawn) testBoard.createNewPiece("A3", Side.White, PieceType.Pawn);
+		testBoard.addPieceToBoard(apawn);
+		assertFalse(apawn.isMoveValid(new Square("E6")));
+	}
+	
+	@Test
+	public void capture_opponent_piece() {
+		final Pawn apawn = (Pawn) testBoard.createNewPiece("E5", Side.White, PieceType.Pawn);
+		final Pawn oppositePawn = (Pawn) testBoard.createNewPiece("D6", Side.Black, PieceType.Pawn);
+		testBoard.addPieceToBoard(apawn);
+		testBoard.addPieceToBoard(oppositePawn);
+		assertTrue(apawn.isMoveValid(new Square("D6")));
+	}
+	
+	@Test
+	public void invalid_capture_own_piece() {
+		final Pawn apawn = (Pawn) testBoard.createNewPiece("E5", Side.White, PieceType.Pawn);
+		final Pawn oppositePawn = (Pawn) testBoard.createNewPiece("F6", Side.White, PieceType.Pawn);
+		testBoard.addPieceToBoard(apawn);
+		testBoard.addPieceToBoard(oppositePawn);
+		assertFalse(apawn.isMoveValid(new Square("F6")));
+	}
 }
