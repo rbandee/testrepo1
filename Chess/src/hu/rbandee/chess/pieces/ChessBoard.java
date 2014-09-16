@@ -46,14 +46,14 @@ public class ChessBoard {
 
 	public void addPieceToBoard(final Piece piece) {
 		final String location = piece.getLocation();
-		final int row = Integer.parseInt(location.substring(1)) - 1;
-		final int column = getColumnNumber(location.substring(0, 1));
+		final int column = Integer.parseInt(location.substring(1)) - 1;
+		final int row = getRowNumber(location.substring(0, 1));
 
-		currentBoard[column][row] = piece.getType();
+		currentBoard[row][column] = piece.getType();
 		printer.createBoardLayout();
 	}
 
-	private int getColumnNumber(final String letter) {
+	private int getRowNumber(final String letter) {
 		return Arrays.binarySearch(rowLetters,
 				letter.toLowerCase(Locale.ENGLISH));
 	}
