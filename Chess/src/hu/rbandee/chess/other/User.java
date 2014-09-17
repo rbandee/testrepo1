@@ -1,4 +1,4 @@
-package hu.rbandee.chess.pieces;
+package hu.rbandee.chess.other;
 
 public class User {
 	private final String name;

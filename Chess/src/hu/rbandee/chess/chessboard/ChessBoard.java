@@ -1,4 +1,4 @@
-package hu.rbandee.chess.pieces;
+package hu.rbandee.chess.chessboard;
 
 public class ChessBoard {
 	static final String[] rowLetters = { "1", "2", "3", "4", "5", "6", "7",

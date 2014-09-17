@@ -1,4 +1,4 @@
-package hu.rbandee.chess.pieces;
+package hu.rbandee.chess.chessboard;
 
 import java.util.ArrayList;
 import java.util.List;

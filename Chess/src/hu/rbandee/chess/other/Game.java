@@ -1,4 +1,9 @@
-package hu.rbandee.chess.pieces;
+package hu.rbandee.chess.other;
+
+import hu.rbandee.chess.chessboard.ChessBoard;
+import hu.rbandee.chess.chessboard.Piece;
+import hu.rbandee.chess.chessboard.PieceType;
+import hu.rbandee.chess.chessboard.Side;
 
 public class Game {
 	private final Player white;

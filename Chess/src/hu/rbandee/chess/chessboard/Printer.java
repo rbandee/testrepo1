@@ -1,4 +1,4 @@
-package hu.rbandee.chess.pieces;
+package hu.rbandee.chess.chessboard;
 
 public class Printer {
 	private static final String SEPARATORLINE = " |-------------------------------|";

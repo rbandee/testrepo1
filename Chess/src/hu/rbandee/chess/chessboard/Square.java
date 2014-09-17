@@ -1,4 +1,4 @@
-package hu.rbandee.chess.pieces;
+package hu.rbandee.chess.chessboard;
 
 import java.util.Arrays;
 import java.util.Locale;
