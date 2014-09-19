@@ -3,8 +3,6 @@ package hu.rbandee.chess.chessboard;
 public class Printer {
 	private static final String SEPARATORLINE = " |-------------------------------|";
 	private static final String FRAMELINE = " +-------------------------------+";
-	private static final String EMPTYWHITEFIELD = " ";
-	private static final String EMPTYBLACKFIELD = ".";
 	private static final String NEWLINE = System.getProperty("line.separator");
 
 	private final ChessBoard myBoard;
@@ -28,7 +26,7 @@ public class Printer {
 	private void addRowToLayout() {
 		for (int row = 7; row >= 0; row--) {
 			boardLayout.append(ChessBoard.getRowLetter(row)).append('|');
-			addFieldsInRowToLayout(row);
+			addSquaresInRowToLayout(row);
 			boardLayout.append(ChessBoard.getRowLetter(row));
 			addEmptylineToLayout();
 			if (notTheLast(row)) {
@@ -41,7 +39,7 @@ public class Printer {
 		return row != 0;
 	}
 
-	private void addFieldsInRowToLayout(final int row) {
+	private void addSquaresInRowToLayout(final int row) {
 		for (int column = 0; column < 8; column++) {
 			boardLayout.append(' ');
 			addElementToLayout(row, column);
@@ -50,54 +48,7 @@ public class Printer {
 	}
 
 	private void addElementToLayout(final int row, final int column) {
-		String element;
-		switch (myBoard.getBoardValue(row, column)) {
-		case EmptyBlack:
-			element = EMPTYBLACKFIELD;
-			break;
-		case EmptyWhite:
-			element = EMPTYWHITEFIELD;
-			break;
-		case BB:
-			element = "B";
-			break;
-		case BK:
-			element = "K";
-			break;
-		case BN:
-			element = "N";
-			break;
-		case BP:
-			element = "P";
-			break;
-		case BQ:
-			element = "Q";
-			break;
-		case BR:
-			element = "R";
-			break;
-		case WB:
-			element = "B";
-			break;
-		case WK:
-			element = "K";
-			break;
-		case WN:
-			element = "N";
-			break;
-		case WP:
-			element = "P";
-			break;
-		case WQ:
-			element = "Q";
-			break;
-		case WR:
-			element = "R";
-			break;
-		default:
-			throw new RuntimeException("Invalid Board Value found in row "
-					+ row + ", column " + column + "!");
-		}
+		String element = myBoard.getSquare(row, column).toString();
 		boardLayout.append(element);
 	}
 

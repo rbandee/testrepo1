@@ -2,18 +2,18 @@ package hu.rbandee.chess.chessboard;
 
 public class Knight extends Piece {
 
-	public Knight(final Field startPositon, final Side side) {
-		super(startPositon);
-		if (side == Side.White) {
-			boardValue = BoardValues.WN;
-		} else {
-			boardValue = BoardValues.BN;
-		}
+	public Knight(final Square startPositon, final Side side) {
+		super(startPositon, side);
 	}
 
 	@Override
-	protected boolean isMoveValid(final Field field) {
+	protected boolean isMoveValid(final Square newPosition) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "N";
 	}
 }

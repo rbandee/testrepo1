@@ -43,10 +43,6 @@ public class Game {
 		black.addPiece(board.createNewPiece("G6", Side.Black, PieceType.Pawn));
 		black.addPiece(board.createNewPiece("G7", Side.Black, PieceType.Pawn));
 		black.addPiece(board.createNewPiece("G8", Side.Black, PieceType.Pawn));
-		
-		for (Piece piece : black.getPieces()) {
-			board.addPieceToBoard(piece);
-		}
 	}
 	
 	private void initWhiteSide() {
@@ -66,9 +62,5 @@ public class Game {
 		white.addPiece(board.createNewPiece("B6", Side.White, PieceType.Pawn));
 		white.addPiece(board.createNewPiece("B7", Side.White, PieceType.Pawn));
 		white.addPiece(board.createNewPiece("B8", Side.White, PieceType.Pawn));
-		
-		for (Piece piece : white.getPieces()) {
-			board.addPieceToBoard(piece);
-		}
 	}
 }

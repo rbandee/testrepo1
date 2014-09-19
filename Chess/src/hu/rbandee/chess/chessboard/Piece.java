@@ -4,38 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Piece {
-	private Field position;
-	protected BoardValues boardValue;
+	private Square position;
 	private ChessBoard myBoard;
+	private Side side;
 
-	public Piece(final Field startPositon) {
+	public Piece(final Square startPositon, Side side) {
 		position = startPositon;
+		this.side = side;
 	}
 
-	public void move(final Field field) {
-		if (isMoveValid(field)) {
-			position = field;
+	public void move(final Square newPosition) {
+		if (isMoveValid(newPosition)) {
+			position = newPosition;
 		}
 	}
 
-	public Field getPosition() {
+	public Square getPosition() {
 		return position;
 	}
 
-	public BoardValues getType() {
-		return boardValue;
-	}
-
-	protected abstract boolean isMoveValid(final Field field);
+	protected abstract boolean isMoveValid(final Square newPosition);
 
 	public ChessBoard getMyBoard() {
 		return myBoard;
 	}
 
-	public List<Field> getAvailabeFields() {
-		List<Field> allPossibleFields = new ArrayList<Field>();
+	public List<Square> getAvailabeSquares() {
+		List<Square> allPossibleSquares = new ArrayList<Square>();
 
-		return allPossibleFields;
+		return allPossibleSquares;
 	}
 
 	public void setMyBoard(ChessBoard chessBoard) {
@@ -53,20 +50,13 @@ public abstract class Piece {
 	}
 
 	public boolean isWhite() {
-		return boardValue.equals(BoardValues.WB)
-				|| boardValue.equals(BoardValues.WR)
-				|| boardValue.equals(BoardValues.WP)
-				|| boardValue.equals(BoardValues.WK)
-				|| boardValue.equals(BoardValues.WN)
-				|| boardValue.equals(BoardValues.WQ);
+		return side == Side.White;
 	}
 
 	public boolean isBlack() {
-		return boardValue.equals(BoardValues.BB)
-				|| boardValue.equals(BoardValues.BR)
-				|| boardValue.equals(BoardValues.BP)
-				|| boardValue.equals(BoardValues.BK)
-				|| boardValue.equals(BoardValues.BN)
-				|| boardValue.equals(BoardValues.BQ);
+		return side == Side.Black;
 	}
+
+	 @Override
+	public abstract String toString();
 }

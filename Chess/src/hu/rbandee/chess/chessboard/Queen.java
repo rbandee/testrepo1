@@ -2,18 +2,18 @@ package hu.rbandee.chess.chessboard;
 
 public class Queen extends Piece {
 
-	public Queen(final Field startPositon, final Side side) {
-		super(startPositon);
-		if (side == Side.White) {
-			boardValue = BoardValues.WQ;
-		} else {
-			boardValue = BoardValues.BQ;
-		}
+	public Queen(final Square startPositon, final Side side) {
+		super(startPositon, side);
 	}
 
 	@Override
-	protected boolean isMoveValid(Field field) {
+	protected boolean isMoveValid(Square newPosition) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Q";
 	}
 }
