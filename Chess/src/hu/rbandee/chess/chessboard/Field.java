@@ -3,13 +3,13 @@ package hu.rbandee.chess.chessboard;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class Square {
+public class Field {
 	private int row;
 	private int column;
 	
-	public Square(String squareString){
-		column = getColumnNumber(squareString.substring(0, 1));
-		row = Integer.parseInt(squareString.substring(1)) - 1;
+	public Field(String fieldString){
+		column = getColumnNumber(fieldString.substring(0, 1));
+		row = Integer.parseInt(fieldString.substring(1)) - 1;
 	}
 
 	private int getColumnNumber(final String letter) {

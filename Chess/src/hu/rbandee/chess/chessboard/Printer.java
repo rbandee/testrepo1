@@ -3,8 +3,8 @@ package hu.rbandee.chess.chessboard;
 public class Printer {
 	private static final String SEPARATORLINE = " |-------------------------------|";
 	private static final String FRAMELINE = " +-------------------------------+";
-	private static final String EMPTYWHITESQUARE = " ";
-	private static final String EMPTYBLACKSQUARE = ".";
+	private static final String EMPTYWHITEFIELD = " ";
+	private static final String EMPTYBLACKFIELD = ".";
 	private static final String NEWLINE = System.getProperty("line.separator");
 
 	private final ChessBoard myBoard;
@@ -28,7 +28,7 @@ public class Printer {
 	private void addRowToLayout() {
 		for (int row = 7; row >= 0; row--) {
 			boardLayout.append(ChessBoard.getRowLetter(row)).append('|');
-			addSquaresInRowToLayout(row);
+			addFieldsInRowToLayout(row);
 			boardLayout.append(ChessBoard.getRowLetter(row));
 			addEmptylineToLayout();
 			if (notTheLast(row)) {
@@ -41,7 +41,7 @@ public class Printer {
 		return row != 0;
 	}
 
-	private void addSquaresInRowToLayout(final int row) {
+	private void addFieldsInRowToLayout(final int row) {
 		for (int column = 0; column < 8; column++) {
 			boardLayout.append(' ');
 			addElementToLayout(row, column);
@@ -53,10 +53,10 @@ public class Printer {
 		String element;
 		switch (myBoard.getBoardValue(row, column)) {
 		case EmptyBlack:
-			element = EMPTYBLACKSQUARE;
+			element = EMPTYBLACKFIELD;
 			break;
 		case EmptyWhite:
-			element = EMPTYWHITESQUARE;
+			element = EMPTYWHITEFIELD;
 			break;
 		case BB:
 			element = "B";

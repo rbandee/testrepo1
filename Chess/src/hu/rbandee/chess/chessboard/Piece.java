@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Piece {
-	private Square position;
+	private Field position;
 	protected BoardValues boardValue;
 	private ChessBoard myBoard;
 
-	public Piece(final Square startPositon) {
+	public Piece(final Field startPositon) {
 		position = startPositon;
 	}
 
-	public void move(final Square square) {
-		if (isMoveValid(square)) {
-			position = square;
+	public void move(final Field field) {
+		if (isMoveValid(field)) {
+			position = field;
 		}
 	}
 
-	public Square getPosition() {
+	public Field getPosition() {
 		return position;
 	}
 
@@ -26,16 +26,16 @@ public abstract class Piece {
 		return boardValue;
 	}
 
-	protected abstract boolean isMoveValid(final Square square);
+	protected abstract boolean isMoveValid(final Field field);
 
 	public ChessBoard getMyBoard() {
 		return myBoard;
 	}
 
-	public List<Square> getAvailabeSquares() {
-		List<Square> allPossibleSquares = new ArrayList<Square>();
+	public List<Field> getAvailabeFields() {
+		List<Field> allPossibleFields = new ArrayList<Field>();
 
-		return allPossibleSquares;
+		return allPossibleFields;
 	}
 
 	public void setMyBoard(ChessBoard chessBoard) {

@@ -2,7 +2,7 @@ package hu.rbandee.chess.chessboard;
 
 public class Bishop extends Piece {
 
-	public Bishop(final Square startPositon, final Side side) {
+	public Bishop(final Field startPositon, final Side side) {
 		super(startPositon);
 		if (side == Side.White) {
 			boardValue = BoardValues.WB;
@@ -12,7 +12,7 @@ public class Bishop extends Piece {
 	}
 
 	@Override
-	protected boolean isMoveValid(final Square square) {
+	protected boolean isMoveValid(final Field newField) {
 		// TODO Auto-generated method stub
 		return false;
 	}

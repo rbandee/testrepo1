@@ -2,7 +2,7 @@ package hu.rbandee.chess.chessboard;
 
 public class Pawn extends Piece {
 
-	public Pawn(final Square startPositon, final Side side) {
+	public Pawn(final Field startPositon, final Side side) {
 		super(startPositon);
 		if (side == Side.White) {
 			boardValue = BoardValues.WP;
@@ -12,16 +12,16 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	protected boolean isMoveValid(final Square square) {
+	protected boolean isMoveValid(final Field newField) {
 		boolean valid;
-		if (getMyBoard().isSquareFree(square)) {
-			if (oneStepAhead(square) || initialTwoSteps(square)) {
+		if (getMyBoard().isFieldFree(newField)) {
+			if (oneStepAhead(newField) || initialTwoSteps(newField)) {
 				valid = true;
 			} else {
 				valid = false;
 			}
-		} else if (isOpponent(square)) {
-			if (capture(square)) {
+		} else if (isOpponent(newField)) {
+			if (capture(newField)) {
 				valid = true;
 			} else {
 				valid = false;
@@ -34,10 +34,10 @@ public class Pawn extends Piece {
 		return valid;
 	}
 
-	private boolean isOpponent(Square square) {
+	private boolean isOpponent(Field field) {
 		boolean result;
-		BoardValues bv = getMyBoard().getBoardValue(square.getColumn(),
-				square.getRow());
+		BoardValues bv = getMyBoard().getBoardValue(field.getColumn(),
+				field.getRow());
 		Side pieceSide;
 		if (bv == BoardValues.BK || bv == BoardValues.BB
 				|| bv == BoardValues.BQ || bv == BoardValues.BR
@@ -49,7 +49,7 @@ public class Pawn extends Piece {
 			pieceSide = Side.White;
 		} else {
 			throw new RuntimeException("Unexpected error! There should be a "
-					+ bv + " piece on " + square + ", but it seems empty.");
+					+ bv + " piece on " + field + ", but it seems empty.");
 		}
 		if (pieceSide == this.getSide()) {
 			result = false;
@@ -59,29 +59,29 @@ public class Pawn extends Piece {
 		return result;
 	}
 
-	private boolean capture(final Square square) {
-		return oneStep(square) && adjacent(square);
+	private boolean capture(final Field field) {
+		return oneStep(field) && adjacent(field);
 	}
 
-	private boolean initialTwoSteps(final Square square) {
-		return straightAhead(square) && twoStep(square);
+	private boolean initialTwoSteps(final Field field) {
+		return straightAhead(field) && twoStep(field);
 	}
 
-	private boolean oneStepAhead(final Square square) {
-		return straightAhead(square) && oneStep(square);
+	private boolean oneStepAhead(final Field field) {
+		return straightAhead(field) && oneStep(field);
 	}
 
-	private boolean twoStep(Square square) {
-		return (isWhite() && (getPosition().getRow() == 1) && ((square.getRow() - 2) == getPosition()
+	private boolean twoStep(Field field) {
+		return (isWhite() && (getPosition().getRow() == 1) && ((field.getRow() - 2) == getPosition()
 				.getRow()))
-				|| (isBlack() && (getPosition().getRow() == 6) && ((square
+				|| (isBlack() && (getPosition().getRow() == 6) && ((field
 						.getRow() + 2) == getPosition().getRow()));
 	}
 
-	private boolean adjacent(Square square) {
+	private boolean adjacent(Field field) {
 		boolean result;
 		int col = getPosition().getColumn();
-		int toCol = square.getColumn();
+		int toCol = field.getColumn();
 
 		if ((col - 1 >= 0 && col - 1 == toCol)
 				|| (col + 1 < 8 && col + 1 == toCol)) {
@@ -92,12 +92,12 @@ public class Pawn extends Piece {
 		return result;
 	}
 
-	private boolean oneStep(Square square) {
-		return (isWhite() && square.getRow() - 1 == getPosition().getRow())
-				|| (isBlack() && square.getRow() + 1 == getPosition().getRow());
+	private boolean oneStep(Field field) {
+		return (isWhite() && field.getRow() - 1 == getPosition().getRow())
+				|| (isBlack() && field.getRow() + 1 == getPosition().getRow());
 	}
 
-	private boolean straightAhead(final Square square) {
-		return square.getColumn() == getPosition().getColumn();
+	private boolean straightAhead(final Field field) {
+		return field.getColumn() == getPosition().getColumn();
 	}
 }

@@ -1,9 +1,9 @@
 package hu.rbandee.chess.chessboard;
 
 public class ChessBoard {
-	static final String[] rowLetters = { "1", "2", "3", "4", "5", "6", "7",
-			"8" };
-	static final String[] columnLetters = { "a", "b", "c", "d", "e", "f", "g", "h" };
+	static final String[] rowLetters = { "1", "2", "3", "4", "5", "6", "7", "8" };
+	static final String[] columnLetters = { "a", "b", "c", "d", "e", "f", "g",
+			"h" };
 	private final Printer printer;
 
 	private final BoardValues[][] currentBoard = new BoardValues[8][8];
@@ -21,6 +21,10 @@ public class ChessBoard {
 				initBoardElement(row, column);
 			}
 		}
+	}
+
+	public void clearBoard() {
+		initEmptyBoard();
 	}
 
 	private void initBoardElement(final int row, final int column) {
@@ -48,32 +52,33 @@ public class ChessBoard {
 		currentBoard[column][row] = newPiece.getType();
 		printer.updateBoardLayout();
 	}
-	
-	public Piece createNewPiece(final String squareString, final Side side, final PieceType pieceType) {
-		final Square square = new Square(squareString);
+
+	public Piece createNewPiece(final String fieldString, final Side side,
+			final PieceType pieceType) {
+		final Field field = new Field(fieldString);
 		Piece newPiece;
 		switch (pieceType) {
 		case Bishop:
-			newPiece = new Bishop(square, side);
+			newPiece = new Bishop(field, side);
 			break;
 		case King:
-			newPiece = new King(square, side);
+			newPiece = new King(field, side);
 			break;
 		case Knight:
-			newPiece = new Knight(square, side);
+			newPiece = new Knight(field, side);
 			break;
 		case Pawn:
-			newPiece = new Pawn(square, side);
+			newPiece = new Pawn(field, side);
 			break;
 		case Queen:
-			newPiece = new Queen(square, side);
+			newPiece = new Queen(field, side);
 			break;
 		case Rook:
-			newPiece = new Rook(square, side);
+			newPiece = new Rook(field, side);
 			break;
 		default:
 			throw new RuntimeException("Chess Piece (" + pieceType
-					+ ") couldn't created on square " + square);
+					+ ") couldn't created on field " + field);
 		}
 		return newPiece;
 	}
@@ -85,11 +90,11 @@ public class ChessBoard {
 	public static String getRowLetter(final int column) {
 		return rowLetters[column];
 	}
-	
-	public boolean isSquareFree(final Square square) {
+
+	public boolean isFieldFree(final Field field) {
 		boolean free;
-		BoardValues value = currentBoard[square.getColumn()][square.getRow()];
-		if (value==BoardValues.EmptyBlack || value==BoardValues.EmptyWhite){
+		BoardValues value = currentBoard[field.getColumn()][field.getRow()];
+		if (value == BoardValues.EmptyBlack || value == BoardValues.EmptyWhite) {
 			free = true;
 		} else {
 			free = false;

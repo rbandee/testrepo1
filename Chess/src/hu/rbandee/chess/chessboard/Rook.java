@@ -2,7 +2,7 @@ package hu.rbandee.chess.chessboard;
 
 public class Rook extends Piece {
 
-	public Rook(final Square startPositon, final Side side) {
+	public Rook(final Field startPositon, final Side side) {
 		super(startPositon);
 		if (side == Side.White) {
 			boardValue = BoardValues.WR;
@@ -12,7 +12,7 @@ public class Rook extends Piece {
 	}
 
 	@Override
-	protected boolean isMoveValid(Square square) {
+	protected boolean isMoveValid(Field field) {
 		// TODO Auto-generated method stub
 		return false;
 	}
