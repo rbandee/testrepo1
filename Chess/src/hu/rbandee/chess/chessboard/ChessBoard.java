@@ -21,8 +21,15 @@ public class ChessBoard {
 	private void initEmptyBoard() {
 		for (int row = 0; row < 8; row++) {
 			for (int column = 0; column < 8; column++) {
-				String initString = generateKey(row, column);
-				boardMap.put(initString, initSquare(row, column));
+				String keyToSquare = generateKey(row, column);
+				Square newSquare = createSquare(row, column);
+				if (keyToSquare.equals("a1")){
+					newSquare.setPiece(new Rook(newSquare, Side.White));
+				}
+				if (keyToSquare.equals("A2")){
+					newSquare.setPiece(new Bishop(newSquare, Side.White));
+				}
+				boardMap.put(keyToSquare, newSquare);
 			}
 		}
 		System.out.println("A1: " + boardMap.get("A1"));
@@ -38,7 +45,7 @@ public class ChessBoard {
 		initEmptyBoard();
 	}
 
-	private Square initSquare(final int row, final int column) {
+	private Square createSquare(final int row, final int column) {
 		Square newSquare;
 		final boolean oddRow = row % 2 == 0;
 		final boolean oddColumn = column % 2 == 0;
