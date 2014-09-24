@@ -4,31 +4,33 @@ public class Printer {
 	private static final String SEPARATORLINE = " |-------------------------------|";
 	private static final String FRAMELINE = " +-------------------------------+";
 	private static final String NEWLINE = System.getProperty("line.separator");
+	private static final String EMPTYWHITESQUARE = " ";
+	private static final String EMPTYBLACKSQUARE = ".";
 
 	private final ChessBoard myBoard;
-	private final StringBuilder boardLayout = new StringBuilder(700);
+	private StringBuilder boardLayout = new StringBuilder(700);
 
 	public Printer(final ChessBoard board) {
 		myBoard = board;
 	}
 
 	public void createBoardLayout() {
-		addEmptylineToLayout();
-		addBoardHeaderToLayout();
-		addRowToLayout();
-		addBoardFooterToLayout();
+		addEmptyline();
+		addHeader();
+		addRow();
+		addFooter();
 	}
 
-	private void addEmptylineToLayout() {
+	private void addEmptyline() {
 		boardLayout.append(NEWLINE);
 	}
 
-	private void addRowToLayout() {
+	private void addRow() {
 		for (int row = 7; row >= 0; row--) {
 			boardLayout.append(ChessBoard.getRowLetter(row)).append('|');
-			addSquaresInRowToLayout(row);
+			addSquaresInRow(row);
 			boardLayout.append(ChessBoard.getRowLetter(row));
-			addEmptylineToLayout();
+			addEmptyline();
 			if (notTheLast(row)) {
 				boardLayout.append(SEPARATORLINE).append(NEWLINE);
 			}
@@ -39,24 +41,37 @@ public class Printer {
 		return row != 0;
 	}
 
-	private void addSquaresInRowToLayout(final int row) {
+	private void addSquaresInRow(final int row) {
 		for (int column = 0; column < 8; column++) {
 			boardLayout.append(' ');
-			addElementToLayout(row, column);
+			addElement(column, row);
 			boardLayout.append(" |");
 		}
 	}
 
-	private void addElementToLayout(final int row, final int column) {
-		String element = myBoard.getSquare(row, column).toString();
+	private void addElement(final int column, final int row) {
+		Square square = myBoard.getSquare(column, row);
+		String element = getSignOfPiece(square);
 		boardLayout.append(element);
 	}
 
-	private void addBoardHeaderToLayout() {
+	private String getSignOfPiece(Square square) {
+		String s = "";
+		if (square.isFree() && square.getColor() == Color.Dark) {
+			s = EMPTYBLACKSQUARE;
+		} else if (square.isFree() && square.getColor() == Color.Light) {
+			s = EMPTYWHITESQUARE;
+		} else {
+			s = square.getPiece().toString();
+		}
+		return s;
+	}
+
+	private void addHeader() {
 		boardLayout.append(getColumnLine());
-		addEmptylineToLayout();
+		addEmptyline();
 		boardLayout.append(FRAMELINE);
-		addEmptylineToLayout();
+		addEmptyline();
 	}
 
 	private String getColumnLine() {
@@ -67,14 +82,15 @@ public class Printer {
 		return line;
 	}
 
-	private void addBoardFooterToLayout() {
+	private void addFooter() {
 		boardLayout.append(FRAMELINE);
-		addEmptylineToLayout();
+		addEmptyline();
 		boardLayout.append(getColumnLine());
-		addEmptylineToLayout();
+		addEmptyline();
 	}
 
 	public void printBoard() {
+		refreshLayout();
 		System.out.println(boardLayout.toString());
 	}
 
@@ -82,8 +98,13 @@ public class Printer {
 		return boardLayout.toString();
 	}
 
+	public void refreshLayout() {
+		boardLayout = new StringBuilder(700);
+		createBoardLayout();
+	}
+
 	public void updateBoardLayout() {
-		//TODO rewrite this to onli update not regenereate the whole board
+		//TODO rewrite this to only update not regenereate the whole board
 		createBoardLayout();
 	}
 }

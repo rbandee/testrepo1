@@ -5,8 +5,7 @@ import java.util.List;
 
 public abstract class Piece {
 	private Square position;
-	private ChessBoard myBoard;
-	private Side side;
+	private final Side side;
 
 	public Piece(final Square startPositon, Side side) {
 		position = startPositon;
@@ -25,18 +24,10 @@ public abstract class Piece {
 
 	protected abstract boolean isMoveValid(final Square newPosition);
 
-	public ChessBoard getMyBoard() {
-		return myBoard;
-	}
-
 	public List<Square> getAvailabeSquares() {
 		List<Square> allPossibleSquares = new ArrayList<Square>();
 
 		return allPossibleSquares;
-	}
-
-	public void setMyBoard(ChessBoard chessBoard) {
-		myBoard = chessBoard;
 	}
 
 	public Side getSide() {
@@ -57,6 +48,6 @@ public abstract class Piece {
 		return side == Side.Black;
 	}
 
-	 @Override
+	@Override
 	public abstract String toString();
 }

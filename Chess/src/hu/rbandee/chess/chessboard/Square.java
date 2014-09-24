@@ -6,14 +6,11 @@ public class Square {
 	private Piece piece = null;
 	private final Color color;
 
-	private static final String EMPTYWHITESQUARE = " ";
-	private static final String EMPTYBLACKSQUARE = ".";
-
-	public Square(final String initString, final Color color){
+	public Square(final String initString, final Color color) {
 		this.color = color;
 	}
 
-	public Square(final int row, final int column, final Color color){
+	public Square(final int column, final int row, final Color color) {
 		this.color = color;
 		this.row = row;
 		this.column = column;
@@ -23,7 +20,7 @@ public class Square {
 		return row;
 	}
 
-	public void setRow(int row) {
+	public void setRow(final int row) {
 		this.row = row;
 	}
 
@@ -31,7 +28,7 @@ public class Square {
 		return column;
 	}
 
-	public void setColumn(int column) {
+	public void setColumn(final int column) {
 		this.column = column;
 	}
 
@@ -40,9 +37,9 @@ public class Square {
 	}
 
 	public boolean isFree() {
-		if (piece == null){
+		if (piece == null) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -51,11 +48,14 @@ public class Square {
 		return piece.getSide();
 	}
 
-	public void setPiece(Piece piece) {
+	public void setPiece(final Piece piece) {
 		this.piece = piece;
 	}
 
-	
+	public Piece getPiece() {
+		return this.piece;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,7 +67,7 @@ public class Square {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -86,14 +86,6 @@ public class Square {
 
 	@Override
 	public String toString() {
-		String s = "";
-		if (isFree() && color == Color.Dark){
-			s = EMPTYBLACKSQUARE;
-		} else if (isFree() && color == Color.Light){
-			s = EMPTYWHITESQUARE;
-		} else {
-			s = piece.toString();
-		}
-		return s;
+		return "C" + this.column + "R" + this.row;
 	}
 }
