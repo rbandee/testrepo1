@@ -47,9 +47,9 @@ public class ChessBoard {
 		final boolean oddRow = row % 2 == 0;
 		final boolean oddColumn = column % 2 == 0;
 		if (oddRow && oddColumn || !oddRow && !oddColumn) {
-			newSquare = new Square(column, row, Color.Dark);
+			newSquare = new Square(column, row, Color.Dark, this);
 		} else {
-			newSquare = new Square(column, row, Color.Light);
+			newSquare = new Square(column, row, Color.Light, this);
 		}
 		return newSquare;
 	}

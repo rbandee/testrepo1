@@ -26,4 +26,5 @@ public class Application {
 		users.add(user);
 
 	}
+
 }

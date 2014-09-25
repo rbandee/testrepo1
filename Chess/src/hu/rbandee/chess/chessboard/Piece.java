@@ -22,6 +22,14 @@ public abstract class Piece {
 		return position;
 	}
 
+	public void setPosition(Square position) {
+		this.position = position;
+	}
+
+	protected void setPosition(String positionKey) {
+		this.position = getSquare(positionKey);
+	}
+
 	protected abstract boolean isMoveValid(final Square newPosition);
 
 	public List<Square> getAvailabeSquares() {
@@ -50,4 +58,22 @@ public abstract class Piece {
 
 	@Override
 	public abstract String toString();
+
+	public ChessBoard getChessBoard() {
+		return position.getChessBoard();
+	}
+
+	private Square getSquare(String positionKey) {
+		return getChessBoard().getSquare(positionKey);
+	}
+
+	protected boolean isOpponent(Square newPosition) {
+		boolean result;
+		if (newPosition.getPieceSide() == this.getSide()) {
+			result = false;
+		} else {
+			result = true;
+		}
+		return result;
+	}
 }

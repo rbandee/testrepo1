@@ -29,16 +29,6 @@ public class Pawn extends Piece {
 		return valid;
 	}
 
-	private boolean isOpponent(Square newPosition) {
-		boolean result;
-		if (newPosition.getPieceSide() == this.getSide()) {
-			result = false;
-		} else {
-			result = true;
-		}
-		return result;
-	}
-
 	private boolean capture(final Square newPosition) {
 		return oneStep(newPosition) && adjacent(newPosition);
 	}

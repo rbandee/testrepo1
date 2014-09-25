@@ -5,15 +5,13 @@ public class Square {
 	private int column; //file
 	private Piece piece = null;
 	private final Color color;
+	private final ChessBoard chessBoard;
 
-	public Square(final String initString, final Color color) {
-		this.color = color;
-	}
-
-	public Square(final int column, final int row, final Color color) {
+	public Square(final int column, final int row, final Color color, ChessBoard chessBoard) {
 		this.color = color;
 		this.row = row;
 		this.column = column;
+		this.chessBoard = chessBoard;
 	}
 
 	public int getRow() {
@@ -87,5 +85,9 @@ public class Square {
 	@Override
 	public String toString() {
 		return "C" + this.column + "R" + this.row;
+	}
+
+	public ChessBoard getChessBoard() {
+		return chessBoard;
 	}
 }

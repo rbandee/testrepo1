@@ -8,7 +8,7 @@ public class Printer {
 	private static final String EMPTYBLACKSQUARE = ".";
 
 	private final ChessBoard myBoard;
-	private StringBuilder boardLayout = new StringBuilder(700);
+	private final StringBuilder boardLayout = new StringBuilder(700);
 
 	public Printer(final ChessBoard board) {
 		myBoard = board;
@@ -99,7 +99,7 @@ public class Printer {
 	}
 
 	public void refreshLayout() {
-		boardLayout = new StringBuilder(700);
+		boardLayout.setLength(0);
 		createBoardLayout();
 	}
 
