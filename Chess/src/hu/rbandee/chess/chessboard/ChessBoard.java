@@ -1,5 +1,6 @@
 package hu.rbandee.chess.chessboard;
 
+import hu.rbandee.chess.pieces.Bishop;
 import hu.rbandee.chess.pieces.King;
 import hu.rbandee.chess.pieces.Knight;
 import hu.rbandee.chess.pieces.Pawn;
