@@ -1,0 +1,3 @@
+- make checkMove for all pieces ready
+- introduce some logging
+- create a basic gui
