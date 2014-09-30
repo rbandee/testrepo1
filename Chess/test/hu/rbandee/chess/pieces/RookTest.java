@@ -96,9 +96,51 @@ public class RookTest {
 	}
 
 	@Test
-	public void neg_a_step_forward_and_sideways_is_invalid() {
+	public void neg_a_step_forward_and_right_is_invalid() {
 		whiteRook.setPosition("A1");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("B2")));
+	}
+
+	@Test
+	public void neg_a_step_forward_and_left_is_invalid() {
+		whiteRook.setPosition("B1");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A2")));
+	}
+
+	@Test
+	public void neg_a_step_backward_and_right_is_invalid() {
+		whiteRook.setPosition("A2");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("B1")));
+	}
+
+	@Test
+	public void neg_a_step_backward_and_left_is_invalid() {
+		whiteRook.setPosition("B2");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A1")));
+	}
+
+	@Test
+	public void neg_some_steps_forward_and_right_is_invalid() {
+		whiteRook.setPosition("C3");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("E7")));
+	}
+
+	@Test
+	public void neg_some_steps_forward_and_left_is_invalid() {
+		whiteRook.setPosition("E2");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A4")));
+	}
+
+	@Test
+	public void neg_some_steps_backward_and_right_is_invalid() {
+		whiteRook.setPosition("B8");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("H3")));
+	}
+
+	@Test
+	public void neg_some_steps_backward_and_left_is_invalid() {
+		whiteRook.setPosition("D6");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A1")));
 	}
 
 	@Test
@@ -119,6 +161,13 @@ public class RookTest {
 	public void neg_steps_forward_with_blocking_next_to_the_new_position_is_invalid() {
 		whiteRook.setPosition("A1");
 		blockingRook.setPosition("A4");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A5")));
+	}
+
+	@Test
+	public void neg_steps_forward_with_blocking_on_the_new_position_is_invalid() {
+		whiteRook.setPosition("A1");
+		blockingRook.setPosition("A5");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A5")));
 	}
 
@@ -144,6 +193,13 @@ public class RookTest {
 	}
 
 	@Test
+	public void neg_steps_backwards_with_blocking_on_the_new_position_is_invalid() {
+		whiteRook.setPosition("G8");
+		blockingRook.setPosition("G6");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("G6")));
+	}
+
+	@Test
 	public void neg_steps_to_the_right_with_blocking_is_invalid() {
 		whiteRook.setPosition("B3");
 		blockingRook.setPosition("F3");
@@ -162,6 +218,13 @@ public class RookTest {
 		whiteRook.setPosition("B3");
 		blockingRook.setPosition("F3");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("H3")));
+	}
+
+	@Test
+	public void neg_steps_to_the_right_with_blocking_on_the_new_position_is_invalid() {
+		whiteRook.setPosition("B3");
+		blockingRook.setPosition("F3");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("F3")));
 	}
 
 	@Test
@@ -185,4 +248,45 @@ public class RookTest {
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("B5")));
 	}
 
+	@Test
+	public void neg_steps_to_the_left_with_blocking_on_the_new_position_is_invalid() {
+		whiteRook.setPosition("G5");
+		blockingRook.setPosition("C5");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("C5")));
+	}
+
+	@Test
+	public void capture_enemy_rook_forwards() {
+		whiteRook.setPosition("A1");
+		blackRook.setPosition("A8");
+		assertTrue(whiteRook.isMoveValid(testBoard.getSquare("A8")));
+	}
+
+	@Test
+	public void capture_enemy_rook_forwards_with_black() {
+		blackRook.setPosition("A8");
+		whiteRook.setPosition("A1");
+		assertTrue(blackRook.isMoveValid(testBoard.getSquare("A1")));
+	}
+
+	@Test
+	public void capture_enemy_rook_backwards() {
+		whiteRook.setPosition("G6");
+		blackRook.setPosition("G2");
+		assertTrue(whiteRook.isMoveValid(testBoard.getSquare("G2")));
+	}
+
+	@Test
+	public void capture_enemy_rook_to_the_right() {
+		whiteRook.setPosition("C3");
+		blackRook.setPosition("G3");
+		assertTrue(whiteRook.isMoveValid(testBoard.getSquare("G3")));
+	}
+
+	@Test
+	public void capture_enemy_rook_to_the_left() {
+		whiteRook.setPosition("G3");
+		blackRook.setPosition("C3");
+		assertTrue(whiteRook.isMoveValid(testBoard.getSquare("C3")));
+	}
 }
