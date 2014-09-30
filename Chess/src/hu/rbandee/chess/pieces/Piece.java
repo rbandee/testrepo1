@@ -1,4 +1,8 @@
-package hu.rbandee.chess.chessboard;
+package hu.rbandee.chess.pieces;
+
+import hu.rbandee.chess.chessboard.ChessBoard;
+import hu.rbandee.chess.chessboard.Side;
+import hu.rbandee.chess.chessboard.Square;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +26,17 @@ public abstract class Piece {
 		return position;
 	}
 
-	public void setPosition(Square position) {
-		this.position = position;
+	public void setPosition(String positionKey) {
+		if (position != null) {
+			clearPosition();
+		}
+		position = getSquare(positionKey);
+		position.setPiece(this);
 	}
 
-	protected void setPosition(String positionKey) {
-		this.position = getSquare(positionKey);
+	public void clearPosition() {
+		position.setPiece(null);
+		this.position = getSquare(ChessBoard.OUTOFBOARD);
 	}
 
 	protected abstract boolean isMoveValid(final Square newPosition);

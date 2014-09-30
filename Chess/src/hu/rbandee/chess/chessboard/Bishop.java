@@ -1,5 +1,7 @@
 package hu.rbandee.chess.chessboard;
 
+import hu.rbandee.chess.pieces.Piece;
+
 public class Bishop extends Piece {
 
 	public Bishop(final Square startPositon, final Side side) {

@@ -1,7 +1,7 @@
 package hu.rbandee.chess.other;
 
-import hu.rbandee.chess.chessboard.Piece;
 import hu.rbandee.chess.chessboard.Side;
+import hu.rbandee.chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;

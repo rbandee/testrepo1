@@ -1,7 +1,11 @@
-package hu.rbandee.chess.chessboard;
+package hu.rbandee.chess.pieces;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
+import hu.rbandee.chess.chessboard.ChessBoard;
+import hu.rbandee.chess.chessboard.PieceType;
+import hu.rbandee.chess.chessboard.Side;
+import hu.rbandee.chess.pieces.Pawn;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;

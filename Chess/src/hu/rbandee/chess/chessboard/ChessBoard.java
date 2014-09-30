@@ -1,5 +1,12 @@
 package hu.rbandee.chess.chessboard;
 
+import hu.rbandee.chess.pieces.King;
+import hu.rbandee.chess.pieces.Knight;
+import hu.rbandee.chess.pieces.Pawn;
+import hu.rbandee.chess.pieces.Piece;
+import hu.rbandee.chess.pieces.Queen;
+import hu.rbandee.chess.pieces.Rook;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -7,11 +14,14 @@ import java.util.Map;
 public class ChessBoard {
 	static final String[] rowLetters = { "1", "2", "3", "4", "5", "6", "7", "8" };
 	static final String[] columnLetters = { "a", "b", "c", "d", "e", "f", "g", "h" };
+	public static final String OUTOFBOARD = "-";
+	private final Square outOfBoardSquare;
 	private final Printer printer;
 
 	private final Map<String, Square> boardMap = new HashMap<String, Square>();
 
 	public ChessBoard() {
+		outOfBoardSquare = new Square(-1, -1, Color.Dark, this);
 		initEmptyBoard();
 
 		printer = new Printer(this);
@@ -19,6 +29,7 @@ public class ChessBoard {
 	}
 
 	private void initEmptyBoard() {
+		boardMap.put(OUTOFBOARD, getOutOfBoardSquare());
 		for (int row = 0; row < 8; row++) {
 			for (int column = 0; column < 8; column++) {
 				String keyToSquare = generateKey(column, row);
@@ -37,7 +48,7 @@ public class ChessBoard {
 			for (int column = 0; column < 8; column++) {
 				String keyToSquare = generateKey(column, row);
 				Square clearItsPiece = boardMap.get(keyToSquare);
-				clearItsPiece.setPiece(null);
+				clearItsPiece.setPieceOffBoard();
 			}
 		}
 	}
@@ -101,5 +112,9 @@ public class ChessBoard {
 
 	public static String getRowLetter(final int row) {
 		return rowLetters[row];
+	}
+
+	public Square getOutOfBoardSquare() {
+		return outOfBoardSquare;
 	}
 }

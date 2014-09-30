@@ -1,7 +1,10 @@
-package hu.rbandee.chess.chessboard;
+package hu.rbandee.chess.pieces;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
+import hu.rbandee.chess.chessboard.ChessBoard;
+import hu.rbandee.chess.chessboard.PieceType;
+import hu.rbandee.chess.chessboard.Side;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
@@ -16,9 +19,9 @@ public class RookTest {
 	@BeforeTest
 	public void initBoard() {
 		testBoard = new ChessBoard();
-		whiteRook = (Rook) testBoard.createNewPiece("A1", Side.White, PieceType.Rook);
-		blackRook = (Rook) testBoard.createNewPiece("H8", Side.Black, PieceType.Rook);
-		blockingRook = (Rook) testBoard.createNewPiece("A3", Side.White, PieceType.Rook);
+		whiteRook = (Rook) testBoard.createNewPiece(ChessBoard.OUTOFBOARD, Side.White, PieceType.Rook);
+		blackRook = (Rook) testBoard.createNewPiece(ChessBoard.OUTOFBOARD, Side.Black, PieceType.Rook);
+		blockingRook = (Rook) testBoard.createNewPiece(ChessBoard.OUTOFBOARD, Side.White, PieceType.Rook);
 	}
 
 	@AfterMethod
@@ -46,9 +49,7 @@ public class RookTest {
 
 	@Test
 	public void one_step_backward_is_valid_move() {
-		testBoard.printBoard();
 		whiteRook.setPosition("A2");
-		testBoard.printBoard();
 		assertTrue(whiteRook.isMoveValid(testBoard.getSquare("A1")));
 	}
 
@@ -101,37 +102,87 @@ public class RookTest {
 	}
 
 	@Test
-	public void neg_vertical_steps_up_with_blocking_is_invalid() {
+	public void neg_steps_forward_with_blocking_is_invalid() {
 		whiteRook.setPosition("A1");
 		blockingRook.setPosition("A3");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A5")));
 	}
 
 	@Test
-	public void neg_vertical_steps_down_with_blocking_is_invalid() {
+	public void neg_steps_forward_with_blocking_next_to_the_rook_is_invalid() {
+		whiteRook.setPosition("A1");
+		blockingRook.setPosition("A2");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A5")));
+	}
+
+	@Test
+	public void neg_steps_forward_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteRook.setPosition("A1");
+		blockingRook.setPosition("A4");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A5")));
+	}
+
+	@Test
+	public void neg_steps_backwards_with_blocking_is_invalid() {
 		whiteRook.setPosition("A5");
 		blockingRook.setPosition("A3");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A1")));
 	}
 
 	@Test
-	public void neg_vertical_steps_with_blocking_next_to_the_rook_is_invalid() {
-		blockingRook.setPosition("A2");
-		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("A5")));
-	}
-
-	@Test
-	public void neg_vertical_steps_with_blocking_next_to_the_rook_is_invalid2() {
+	public void neg_steps_backwards_with_blocking_next_to_the_rook_is_invalid() {
 		whiteRook.setPosition("G8");
 		blockingRook.setPosition("G7");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("G5")));
 	}
 
 	@Test
-	public void neg_horizontal_steps_with_blocking_is_invalid() {
+	public void neg_steps_backwards_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteRook.setPosition("G8");
+		blockingRook.setPosition("G6");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("G5")));
+	}
+
+	@Test
+	public void neg_steps_to_the_right_with_blocking_is_invalid() {
 		whiteRook.setPosition("B3");
 		blockingRook.setPosition("F3");
 		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("H3")));
+	}
+
+	@Test
+	public void neg_steps_to_the_right_with_blocking_next_to_the_rook_is_invalid() {
+		whiteRook.setPosition("B3");
+		blockingRook.setPosition("C3");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("H3")));
+	}
+
+	@Test
+	public void neg_steps_to_the_right_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteRook.setPosition("B3");
+		blockingRook.setPosition("F3");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("H3")));
+	}
+
+	@Test
+	public void neg_steps_to_the_left_with_blocking_is_invalid() {
+		whiteRook.setPosition("G5");
+		blockingRook.setPosition("D5");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("B5")));
+	}
+
+	@Test
+	public void neg_steps_to_the_left_with_blocking_next_to_the_rook_is_invalid() {
+		whiteRook.setPosition("G5");
+		blockingRook.setPosition("F5");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("B5")));
+	}
+
+	@Test
+	public void neg_steps_to_the_left_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteRook.setPosition("G5");
+		blockingRook.setPosition("C5");
+		assertFalse(whiteRook.isMoveValid(testBoard.getSquare("B5")));
 	}
 
 }

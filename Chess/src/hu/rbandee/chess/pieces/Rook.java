@@ -1,4 +1,7 @@
-package hu.rbandee.chess.chessboard;
+package hu.rbandee.chess.pieces;
+
+import hu.rbandee.chess.chessboard.Side;
+import hu.rbandee.chess.chessboard.Square;
 
 public class Rook extends Piece {
 
@@ -34,12 +37,22 @@ public class Rook extends Piece {
 	private boolean noHorizontalBlock(Square newPosition) {
 		boolean noBlock = true;
 		int row = getPosition().getRow();
-		int step = (newPosition.getColumn() - getPosition().getColumn() > 0) ? 1 : -1;
+		int startColumn = getPosition().getColumn();
+		int newColumn = newPosition.getColumn();
+		int step = (newColumn - startColumn > 0) ? 1 : -1;
+		int checkedColumn = startColumn + step;
 		for (int i = getPosition().getColumn() + step; i < newPosition.getColumn(); i = i + step) {
 			if (!getChessBoard().getSquare(i, row).isFree()) {
 				noBlock = false;
 				break;
 			}
+		}
+		while (limitReached(startColumn, newColumn, checkedColumn)) {
+			if (!getChessBoard().getSquare(checkedColumn, row).isFree()) {
+				noBlock = false;
+				break;
+			}
+			checkedColumn = checkedColumn + step;
 		}
 		return noBlock;
 	}
@@ -81,7 +94,7 @@ public class Rook extends Piece {
 		return noBlock;
 	}
 
-	private boolean limitReached(int startRow, int newRow, int checkedRow) {
+	private boolean limitReached(int startRow, int newRow, int checkedRow) {//TODO: rename parameters
 		boolean result;
 		if (newRow - startRow > 0) {
 			result = checkedRow < newRow;

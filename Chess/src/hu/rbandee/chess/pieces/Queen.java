@@ -1,4 +1,7 @@
-package hu.rbandee.chess.chessboard;
+package hu.rbandee.chess.pieces;
+
+import hu.rbandee.chess.chessboard.Side;
+import hu.rbandee.chess.chessboard.Square;
 
 public class Queen extends Piece {
 

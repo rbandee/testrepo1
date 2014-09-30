@@ -2,6 +2,11 @@ package hu.rbandee.chess.chessboard;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertNull;
+import static org.testng.AssertJUnit.assertTrue;
+import hu.rbandee.chess.pieces.King;
+import hu.rbandee.chess.pieces.Pawn;
+import hu.rbandee.chess.pieces.Piece;
 
 import org.testng.annotations.Test;
 
@@ -53,5 +58,38 @@ public class ChessBoardTest {
 		final ChessBoard board = new ChessBoard();
 		board.createNewPiece("E1", Side.White, PieceType.King);
 		assertEquals(board.getSquare(4, 0), board.getSquare("E1"));
+	}
+
+	@Test
+	public void a_piece_is_on_the_board_after_added_to_it() {
+		final ChessBoard board = new ChessBoard();
+		board.createNewPiece("A1", Side.White, PieceType.King);
+		Piece pieceOnBoard = board.getSquare("A1").getPiece();
+		assertEquals(pieceOnBoard.getSide(), Side.White);
+		assertEquals(pieceOnBoard.getPosition(), board.getSquare("A1"));
+		assertTrue(pieceOnBoard instanceof King);
+	}
+
+	@Test
+	public void a_piece_can_be_moved() {
+		final ChessBoard board = new ChessBoard();
+		board.createNewPiece("B2", Side.White, PieceType.Pawn);
+		Piece pieceOnBoard = board.getSquare("B2").getPiece();
+		pieceOnBoard.setPosition("B3");
+
+		assertEquals(pieceOnBoard.getSide(), Side.White);
+		assertEquals(pieceOnBoard.getPosition(), board.getSquare("B3"));
+		assertTrue(pieceOnBoard instanceof Pawn);
+	}
+
+	@Test
+	public void a_piece_is_not_on_its_old_place_after_moved() {
+		final ChessBoard board = new ChessBoard();
+		board.createNewPiece("B2", Side.White, PieceType.Pawn);
+		Piece pieceOnBoard = board.getSquare("B2").getPiece();
+		pieceOnBoard.setPosition("B3");
+
+		Piece pieceOnOldPosition = board.getSquare("B2").getPiece();
+		assertNull(pieceOnOldPosition);
 	}
 }

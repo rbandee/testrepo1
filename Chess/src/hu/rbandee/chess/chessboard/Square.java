@@ -1,5 +1,7 @@
 package hu.rbandee.chess.chessboard;
 
+import hu.rbandee.chess.pieces.Piece;
+
 public class Square {
 	private int row; //rank
 	private int column; //file
@@ -89,5 +91,11 @@ public class Square {
 
 	public ChessBoard getChessBoard() {
 		return chessBoard;
+	}
+
+	public void setPieceOffBoard() {
+		if (getPiece() != null) {
+			getPiece().clearPosition();
+		}
 	}
 }
