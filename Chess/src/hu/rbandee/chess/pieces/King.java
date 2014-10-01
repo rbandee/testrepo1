@@ -25,14 +25,9 @@ public class King extends Piece {
 	}
 
 	private boolean validStep(Square newPosition) {
-		boolean valid;
-		if (Math.abs(newPosition.getColumn() - getPosition().getColumn()) <= 1
-				&& Math.abs(newPosition.getRow() - getPosition().getRow()) <= 1) {
-			valid = true;
-		} else {
-			valid = false;
-		}
-		return valid;
+		boolean columnIsOK = Math.abs(newPosition.getColumn() - getPosition().getColumn()) <= 1;
+		boolean rowIsOK = Math.abs(newPosition.getRow() - getPosition().getRow()) <= 1;
+		return columnIsOK && rowIsOK;
 	}
 
 	@Override
