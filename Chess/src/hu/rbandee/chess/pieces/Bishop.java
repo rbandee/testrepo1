@@ -30,11 +30,13 @@ public class Bishop extends Piece {
 		int startColumn = getPosition().getColumn();
 		int newRow = newPosition.getRow();
 		int newColumn = newPosition.getColumn();
-		int limit = Math.abs(startRow - newRow) - 1;
+
 		int deltaRow = newRow > startRow ? 1 : -1;
 		int deltaColumn = newColumn > startColumn ? 1 : -1;
+
 		int checkedRow = startRow;
 		int checkedColumn = startColumn;
+		int limit = Math.abs(startRow - newRow) - 1;
 		for (int i = 0; i < limit; i++) {
 			checkedColumn += deltaColumn;
 			checkedRow += deltaRow;
@@ -48,14 +50,9 @@ public class Bishop extends Piece {
 	}
 
 	private boolean validStep(Square newPosition) {
-		boolean valid;
-		if (Math.abs(newPosition.getColumn() - getPosition().getColumn()) == Math.abs(newPosition.getRow()
-				- getPosition().getRow())) {
-			valid = true;
-		} else {
-			valid = false;
-		}
-		return valid;
+		int deltaColumn = Math.abs(newPosition.getColumn() - getPosition().getColumn());
+		int deltaRow = Math.abs(newPosition.getRow() - getPosition().getRow());
+		return deltaColumn == deltaRow;
 	}
 
 	@Override

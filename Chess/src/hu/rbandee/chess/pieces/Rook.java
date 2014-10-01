@@ -13,7 +13,7 @@ public class Rook extends Piece {
 	protected boolean isMoveValid(Square newPosition) {
 		boolean valid;
 		if (newPosition.isFree() || isOpponent(newPosition)) {
-			if (validVerticalStep(newPosition) || validHorizontalStep(newPosition)) {
+			if (validStep(newPosition) && noBlock(newPosition)) {
 				valid = true;
 			} else {
 				valid = false;
@@ -24,94 +24,50 @@ public class Rook extends Piece {
 		return valid;
 	}
 
-	private boolean validHorizontalStep(Square newPosition) {
-		boolean valid;
-		if (isHorizontal(newPosition) && noHorizontalBlock(newPosition)) {
-			valid = true;
-		} else {
-			valid = false;
+	private boolean noBlock(Square newPosition) {
+		int startRow = getPosition().getRow();
+		int startColumn = getPosition().getColumn();
+		int newRow = newPosition.getRow();
+		int newColumn = newPosition.getColumn();
+
+		int limit = 0;
+		int deltaRow = 0;
+		int deltaColumn = 0;
+		if (isHorizontal(newPosition)) {
+			limit = Math.abs(startColumn - newColumn) - 1;
+			deltaColumn = newColumn > startColumn ? 1 : -1;
+		} else if (isVertical(newPosition)) {
+			limit = Math.abs(startRow - newRow) - 1;
+			deltaRow = (newRow > startRow) ? 1 : -1;
 		}
-		return valid;
+		return checkBlock(limit, deltaRow, deltaColumn);
 	}
 
-	private boolean noHorizontalBlock(Square newPosition) {
+	private boolean checkBlock(int limit, int deltaRow, int deltaColumn) {
 		boolean noBlock = true;
-		int row = getPosition().getRow();
-		int startColumn = getPosition().getColumn();
-		int newColumn = newPosition.getColumn();
-		int step = (newColumn - startColumn > 0) ? 1 : -1;
-		int checkedColumn = startColumn + step;
-		for (int i = getPosition().getColumn() + step; i < newPosition.getColumn(); i = i + step) {
-			if (!getChessBoard().getSquare(i, row).isFree()) {
+		int checkedRow = getPosition().getRow();
+		int checkedColumn = getPosition().getColumn();
+		for (int i = 0; i < limit; i++) {
+			checkedColumn += deltaColumn;
+			checkedRow += deltaRow;
+			if (!getChessBoard().getSquare(checkedColumn, checkedRow).isFree()) {
 				noBlock = false;
 				break;
 			}
-		}
-		while (limitReached(startColumn, newColumn, checkedColumn)) {
-			if (!getChessBoard().getSquare(checkedColumn, row).isFree()) {
-				noBlock = false;
-				break;
-			}
-			checkedColumn = checkedColumn + step;
 		}
 		return noBlock;
+	}
+
+	private boolean validStep(Square newPosition) {
+		return isHorizontal(newPosition) || isVertical(newPosition);
 	}
 
 	private boolean isHorizontal(Square newPosition) {
-		boolean horizontal;
-		if (newPosition.getRow() == getPosition().getRow()) {
-			horizontal = true;
-		} else {
-			horizontal = false;
-		}
-		return horizontal;
-	}
-
-	private boolean validVerticalStep(Square newPosition) {
-		boolean valid;
-		if (isVertical(newPosition) && noVerticalBlock(newPosition)) {
-			valid = true;
-		} else {
-			valid = false;
-		}
-		return valid;
-	}
-
-	private boolean noVerticalBlock(Square newPosition) {
-		boolean noBlock = true;
-		int column = getPosition().getColumn();
-		int startRow = getPosition().getRow();
-		int newRow = newPosition.getRow();
-		int step = (newRow - startRow > 0) ? 1 : -1;
-		int checkedRow = startRow + step;
-		while (limitReached(startRow, newRow, checkedRow)) {
-			if (!getChessBoard().getSquare(column, checkedRow).isFree()) {
-				noBlock = false;
-				break;
-			}
-			checkedRow = checkedRow + step;
-		}
-		return noBlock;
-	}
-
-	private boolean limitReached(int startRow, int newRow, int checkedRow) {//TODO: rename parameters
-		boolean result;
-		if (newRow - startRow > 0) {
-			result = checkedRow < newRow;
-		} else {
-			result = checkedRow > newRow;
-		}
-		return result;
+		return newPosition.getRow() == getPosition().getRow();
 	}
 
 	private boolean isVertical(Square newPosition) {
-		boolean vertical;
-		if (newPosition.getColumn() == getPosition().getColumn()) {
-			vertical = true;
-		} else {
-			vertical = false;
-		}
-		return vertical;
+		return newPosition.getColumn() == getPosition().getColumn();
 	}
 
 	@Override
