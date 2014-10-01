@@ -11,8 +11,28 @@ public class King extends Piece {
 
 	@Override
 	protected boolean isMoveValid(final Square newPosition) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean valid;
+		if (newPosition.isFree() || isOpponent(newPosition)) {
+			if (validStep(newPosition)) {
+				valid = true;
+			} else {
+				valid = false;
+			}
+		} else {
+			valid = false;
+		}
+		return valid;
+	}
+
+	private boolean validStep(Square newPosition) {
+		boolean valid;
+		if (Math.abs(newPosition.getColumn() - getPosition().getColumn()) <= 1
+				&& Math.abs(newPosition.getRow() - getPosition().getRow()) <= 1) {
+			valid = true;
+		} else {
+			valid = false;
+		}
+		return valid;
 	}
 
 	@Override
