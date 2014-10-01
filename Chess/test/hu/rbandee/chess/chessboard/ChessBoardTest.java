@@ -92,4 +92,7 @@ public class ChessBoardTest {
 		Piece pieceOnOldPosition = board.getSquare("B2").getPiece();
 		assertNull(pieceOnOldPosition);
 	}
+
+	//TODO: test new square with A11 or K1
+	//TODO: if piece is not on the board then a move is invalid
 }

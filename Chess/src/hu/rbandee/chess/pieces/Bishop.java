@@ -25,7 +25,26 @@ public class Bishop extends Piece {
 	}
 
 	private boolean noBlock(Square newPosition) {
-		return true;//TODO
+		boolean noBlock = true;
+		int startRow = getPosition().getRow();
+		int startColumn = getPosition().getColumn();
+		int newRow = newPosition.getRow();
+		int newColumn = newPosition.getColumn();
+		int limit = Math.abs(startRow - newRow) - 1;
+		int deltaRow = newRow > startRow ? 1 : -1;
+		int deltaColumn = newColumn > startColumn ? 1 : -1;
+		int checkedRow = startRow;
+		int checkedColumn = startColumn;
+		for (int i = 0; i < limit; i++) {
+			checkedColumn += deltaColumn;
+			checkedRow += deltaRow;
+			if (!getChessBoard().getSquare(checkedColumn, checkedRow).isFree()) {
+				noBlock = false;
+				break;
+			}
+
+		}
+		return noBlock;
 	}
 
 	private boolean validStep(Square newPosition) {

@@ -36,6 +36,12 @@ public class BishopTest {
 	}
 
 	@Test
+	public void one_step_forward_and_right_with_black_is_valid_move() {
+		blackBishop.setPosition("F8");
+		assertTrue(blackBishop.isMoveValid(testBoard.getSquare("E7")));
+	}
+
+	@Test
 	public void one_step_forward_and_right_is_valid_move() {
 		whiteBishop.setPosition("A1");
 		assertTrue(whiteBishop.isMoveValid(testBoard.getSquare("B2")));
@@ -60,6 +66,12 @@ public class BishopTest {
 	}
 
 	@Test
+	public void neg_some_steps_forward_with_black_is_invalid_move() {
+		blackBishop.setPosition("E1");
+		assertFalse(blackBishop.isMoveValid(testBoard.getSquare("E7")));
+	}
+
+	@Test
 	public void neg_some_steps_forward_is_invalid_move() {
 		whiteBishop.setPosition("A1");
 		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A7")));
@@ -81,13 +93,6 @@ public class BishopTest {
 	public void neg_some_steps_to_the_left_is_invalid_move() {
 		whiteBishop.setPosition("C7");
 		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A7")));
-	}
-
-	//TODO: normal steps with black
-	@Test
-	public void neg_a_step_forward_and_right_is_invalid() {
-		whiteBishop.setPosition("A1");
-		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("B2")));
 	}
 
 	@Test
@@ -125,12 +130,115 @@ public class BishopTest {
 		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A5")));
 	}
 
-	//TODO:blocking tests with all 3 other direction
+	@Test
+	public void neg_steps_forward_and_left_with_blocking_next_to_the_bishop_is_invalid() {
+		whiteBishop.setPosition("E1");
+		blockingBishop.setPosition("D2");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A5")));
+	}
+
+	@Test
+	public void neg_steps_forward_and_left_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteBishop.setPosition("E1");
+		blockingBishop.setPosition("B4");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A5")));
+	}
+
+	@Test
+	public void neg_steps_forward_and_left_with_blocking_on_the_new_position_is_invalid() {
+		whiteBishop.setPosition("E1");
+		blockingBishop.setPosition("A5");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A5")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_right_with_blocking_is_invalid() {
+		whiteBishop.setPosition("A5");
+		blockingBishop.setPosition("C3");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("E1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_right_with_blocking_next_to_the_bishop_is_invalid() {
+		whiteBishop.setPosition("A5");
+		blockingBishop.setPosition("B4");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("E1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_right_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteBishop.setPosition("A5");
+		blockingBishop.setPosition("D2");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("E1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_right_with_blocking_on_the_new_position_is_invalid() {
+		whiteBishop.setPosition("A5");
+		blockingBishop.setPosition("E1");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("E1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_left_with_blocking_is_invalid() {
+		whiteBishop.setPosition("E5");
+		blockingBishop.setPosition("C3");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_left_with_blocking_next_to_the_bishop_is_invalid() {
+		whiteBishop.setPosition("E5");
+		blockingBishop.setPosition("D4");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_left_with_blocking_next_to_the_new_position_is_invalid() {
+		whiteBishop.setPosition("E5");
+		blockingBishop.setPosition("B2");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A1")));
+	}
+
+	@Test
+	public void neg_steps_backard_and_left_with_blocking_on_the_new_position_is_invalid() {
+		whiteBishop.setPosition("E5");
+		blockingBishop.setPosition("A1");
+		assertFalse(whiteBishop.isMoveValid(testBoard.getSquare("A1")));
+	}
+
 	@Test
 	public void capture_enemy_bishop_forward_and_right() {
 		whiteBishop.setPosition("A1");
 		blackBishop.setPosition("H8");
 		assertTrue(whiteBishop.isMoveValid(testBoard.getSquare("H8")));
 	}
-	//TODO:capture tests with all 3 other direction
+
+	@Test
+	public void capture_enemy_bishop_forward_and_left() {
+		whiteBishop.setPosition("H1");
+		blackBishop.setPosition("A8");
+		assertTrue(whiteBishop.isMoveValid(testBoard.getSquare("A8")));
+	}
+
+	@Test
+	public void capture_enemy_bishop_backward_and_right() {
+		whiteBishop.setPosition("A8");
+		blackBishop.setPosition("H1");
+		assertTrue(whiteBishop.isMoveValid(testBoard.getSquare("H1")));
+	}
+
+	@Test
+	public void capture_enemy_bishop_backward_and_left() {
+		whiteBishop.setPosition("H8");
+		blackBishop.setPosition("A1");
+		assertTrue(whiteBishop.isMoveValid(testBoard.getSquare("A1")));
+	}
+
+	@Test
+	public void capture_enemy_bishop_backward_and_left_with_black() {
+		blackBishop.setPosition("D8");
+		whiteBishop.setPosition("B6");
+		assertTrue(blackBishop.isMoveValid(testBoard.getSquare("B6")));
+	}
 }
