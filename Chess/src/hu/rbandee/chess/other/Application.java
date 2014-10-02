@@ -1,5 +1,7 @@
 package hu.rbandee.chess.other;
 
+import hu.rbandee.chess.gui_swing.ChessFrame;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,9 @@ public class Application {
 		final Game game = new Game(white, black);
 		game.initBoard();
 		game.printBoard();
+
+		ChessFrame gui = ChessFrame.getInstance();
+		gui.showGui();
 	}
 
 	private static void addNewUsers(final User... users) {
