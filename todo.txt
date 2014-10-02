@@ -1,3 +1,14 @@
+- create a basic gui
+ + create JFrame to show a GUI
+ - print an empty chessboard with all 8*8 square
+ - print the pieces after initialization
+ - refresh the piece positions when move is performed
+ - add key and mouse listeners to the window
+ 
+  
 - make checkMove for all pieces ready
 - introduce some logging
-- create a basic gui
+- handle capture
+- handle chess
+- handle en passant
+- handle castle

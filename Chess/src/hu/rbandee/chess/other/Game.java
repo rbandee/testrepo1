@@ -17,7 +17,7 @@ public class Game {
 	}
 
 	public void printBoard() {
-		board.printBoard();
+		getBoard().printBoard();
 	}
 
 	public void initBoard() {
@@ -26,40 +26,44 @@ public class Game {
 	}
 
 	private void initBlackSide() {
-		black.addPiece(board.createNewPiece("H8", Side.Black, PieceType.Rook));
-		black.addPiece(board.createNewPiece("G8", Side.Black, PieceType.Knight));
-		black.addPiece(board.createNewPiece("F8", Side.Black, PieceType.Bishop));
-		black.addPiece(board.createNewPiece("E8", Side.Black, PieceType.Queen));
-		black.addPiece(board.createNewPiece("D8", Side.Black, PieceType.King));
-		black.addPiece(board.createNewPiece("C8", Side.Black, PieceType.Bishop));
-		black.addPiece(board.createNewPiece("B8", Side.Black, PieceType.Knight));
-		black.addPiece(board.createNewPiece("A8", Side.Black, PieceType.Rook));
-		black.addPiece(board.createNewPiece("H7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("G7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("F7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("E7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("D7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("C7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("B7", Side.Black, PieceType.Pawn));
-		black.addPiece(board.createNewPiece("A7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("H8", Side.Black, PieceType.Rook));
+		black.addPiece(getBoard().createNewPiece("G8", Side.Black, PieceType.Knight));
+		black.addPiece(getBoard().createNewPiece("F8", Side.Black, PieceType.Bishop));
+		black.addPiece(getBoard().createNewPiece("E8", Side.Black, PieceType.Queen));
+		black.addPiece(getBoard().createNewPiece("D8", Side.Black, PieceType.King));
+		black.addPiece(getBoard().createNewPiece("C8", Side.Black, PieceType.Bishop));
+		black.addPiece(getBoard().createNewPiece("B8", Side.Black, PieceType.Knight));
+		black.addPiece(getBoard().createNewPiece("A8", Side.Black, PieceType.Rook));
+		black.addPiece(getBoard().createNewPiece("H7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("G7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("F7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("E7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("D7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("C7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("B7", Side.Black, PieceType.Pawn));
+		black.addPiece(getBoard().createNewPiece("A7", Side.Black, PieceType.Pawn));
 	}
 
 	private void initWhiteSide() {
-		white.addPiece(board.createNewPiece("A1", Side.White, PieceType.Rook));
-		white.addPiece(board.createNewPiece("B1", Side.White, PieceType.Knight));
-		white.addPiece(board.createNewPiece("C1", Side.White, PieceType.Bishop));
-		white.addPiece(board.createNewPiece("D1", Side.White, PieceType.Queen));
-		white.addPiece(board.createNewPiece("E1", Side.White, PieceType.King));
-		white.addPiece(board.createNewPiece("F1", Side.White, PieceType.Bishop));
-		white.addPiece(board.createNewPiece("G1", Side.White, PieceType.Knight));
-		white.addPiece(board.createNewPiece("H1", Side.White, PieceType.Rook));
-		white.addPiece(board.createNewPiece("A2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("B2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("C2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("D2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("E2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("F2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("G2", Side.White, PieceType.Pawn));
-		white.addPiece(board.createNewPiece("H2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("A1", Side.White, PieceType.Rook));
+		white.addPiece(getBoard().createNewPiece("B1", Side.White, PieceType.Knight));
+		white.addPiece(getBoard().createNewPiece("C1", Side.White, PieceType.Bishop));
+		white.addPiece(getBoard().createNewPiece("D1", Side.White, PieceType.Queen));
+		white.addPiece(getBoard().createNewPiece("E1", Side.White, PieceType.King));
+		white.addPiece(getBoard().createNewPiece("F1", Side.White, PieceType.Bishop));
+		white.addPiece(getBoard().createNewPiece("G1", Side.White, PieceType.Knight));
+		white.addPiece(getBoard().createNewPiece("H1", Side.White, PieceType.Rook));
+		white.addPiece(getBoard().createNewPiece("A2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("B2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("C2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("D2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("E2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("F2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("G2", Side.White, PieceType.Pawn));
+		white.addPiece(getBoard().createNewPiece("H2", Side.White, PieceType.Pawn));
+	}
+
+	public ChessBoard getBoard() {
+		return board;
 	}
 }

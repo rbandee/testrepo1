@@ -6,30 +6,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
-	private static List<User> users = new ArrayList<User>();
+	private static final Application INSTANCE = new Application();
+	private final List<User> users = new ArrayList<User>();
+	private final Game game;
 
-	public static void main(final String[] args) {
+	public Application() {
 		final User white = new User("White");
 		final User black = new User("Black");
 		addNewUsers(white, black);
 
-		final Game game = new Game(white, black);
-		game.initBoard();
-		game.printBoard();
+		game = new Game(white, black);
+		getGame().initBoard();
+		getGame().printBoard();
+	}
 
+	public static void main(final String[] args) {
 		ChessFrame gui = ChessFrame.getInstance();
 		gui.showGui();
 	}
 
-	private static void addNewUsers(final User... users) {
+	private void addNewUsers(final User... users) {
 		for (final User user : users) {
 			addNewUser(user);
 		}
 	}
 
-	private static void addNewUser(final User user) {
+	private void addNewUser(final User user) {
 		users.add(user);
 
+	}
+
+	public static Application getInstance() {
+		return INSTANCE;
+	}
+
+	public Game getGame() {
+		return game;
 	}
 
 }

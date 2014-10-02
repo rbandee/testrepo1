@@ -1,5 +1,10 @@
 package hu.rbandee.chess.gui_swing;
 
+import hu.rbandee.chess.chessboard.ChessBoard;
+import hu.rbandee.chess.other.Application;
+import hu.rbandee.chess.pieces.Pawn;
+import hu.rbandee.chess.pieces.Piece;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,6 +19,7 @@ public class BoardPanel extends JComponent {
 	private final Color lightColor = Color.WHITE;
 	private int squareHeight;
 	private int squareWidth;
+	private ChessBoard board;
 
 	@Override
 	protected void paintComponent(final Graphics graphics) {
@@ -49,7 +55,31 @@ public class BoardPanel extends JComponent {
 	}
 
 	private void drawPieces(Graphics2D g2d) {
-		// TODO Auto-generated method stub
+		ChessBoard board = getBoard();
+		for (int column = 0; column < squaresInRow; column++) {
+			for (int row = 0; row < squaresInColumn; row++) {
+				Piece piece = board.getSquare(column, row).getPiece();
+				if (piece != null) {
+					drawPiece(g2d, piece);
+				}
+			}
+		}
+	}
 
+	private void drawPiece(Graphics2D g2d, Piece piece) {
+		if (piece instanceof Pawn) {
+			drawPawn(g2d, (Pawn) piece);
+		}
+	}
+
+	private void drawPawn(Graphics2D g2d, Pawn piece) {
+		int x = piece.getPosition().getColumn() * squareWidth + squareWidth / 2;
+		int y = piece.getPosition().getRow() * squareHeight + squareHeight / 2;
+		g2d.setColor(Color.green);
+		g2d.drawString("P", x, y);
+	}
+
+	private ChessBoard getBoard() {
+		return Application.getInstance().getGame().getBoard();
 	}
 }
