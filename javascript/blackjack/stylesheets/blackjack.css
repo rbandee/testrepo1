@@ -1,0 +1,88 @@
+body{
+    width: 90%;
+    max-width: 500px;
+    font: .9em/1.2 Courier, Helvetica, sans-serif;
+}
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+}
+
+header{
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+footer{
+    text-align: right;
+    font-size: small;
+    font-weight: bold;
+}
+
+.result{
+    font-style: oblique;
+    color: blue;
+    vertical-align: center;
+    text-align: center;
+}
+
+button{
+    border-radius: 5px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    outline-color: white;
+}
+
+button.config{
+    box-align: left;
+}
+
+#buttons{
+    grid-area: b;
+    text-align: center;
+}
+
+#resultArea{
+    grid-area: ra;
+}
+
+#resultHistoryArea{
+    grid-area: ha;
+}
+
+#playerArea{
+    grid-area: pa;
+}
+
+#dealerArea{
+    grid-area: da;
+}
+
+#mainArea{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /* grid-auto-rows: minmax(100px, auto); */
+    grid-template-areas:
+    "b b ra ra ha ha"
+    "pa pa pa da da da";
+    /* grid-gap: 20px; */
+}
+
+#mainArea > div {
+    padding: 10px;
+    /* border-radius: 5px;
+    background-color: rgb(207,232,220);
+    border: 2px solid rgb(79,185,227); */
+}
+
+.score{
+    color: black;
+}
+
+.score.OVER{
+    color: red;
+}
